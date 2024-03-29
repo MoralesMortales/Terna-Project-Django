@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    {% block content %}
+    <h1>LOGIN JSJSAJSJAJSASAJSAQJSJA</h1>
+
+    <form method="post">
+        {% csrf_token %}
+        <input type="text" name="username" id="" placeholder="Nombre de user" >
+        <input type="password" name="password" id="" placeholder="password" >
+        <button type="submit">Logging</button>
+    </form>
+    {% endblock content %}>
+</body>
+</html>
