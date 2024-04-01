@@ -8,11 +8,17 @@
     <title>Document</title>
 </head>
 <body>
-    
+
     {% block content %}
-    
-    <h1>Menu</h1>
-    
+
+        {% if request.user.is_authenticated %}
+            <h1 class="m-auto">welcome {{ username }}</h1>
+
+		{% else %}
+            <h1 class="m-auto">welcome to the menu</h1>
+
+		{% endif %}
+
     {% endblock content %}
     
 </body>
