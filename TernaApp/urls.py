@@ -1,7 +1,9 @@
-from .views import BasePage, FormularioEmail, contactar
+from .views import BasePage, FormularioEmail, logIn,logOut,signUp,menuDefaultPage
 from django.urls import path
 
 urlpatterns = [
-   path("", FormularioEmail.as_view(), name="Base"),
-   path("contactar/", contactar, name="contactar")
+   path("", menuDefaultPage, name="menuDefault"),
+   path("login", logIn, name="Login"),
+   path("logout", logOut, name="Logout"),
+   path("signup", signUp, name="Signup")
 ]

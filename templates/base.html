@@ -1,24 +1,52 @@
-{% load static tailwind_tags %}
-
-{% load static %}
-
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-    <title>Django Tailwind</title>
-		<meta charset="UTF-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<meta http-equiv="X-UA-Compatible" content="ie=edge">
-		<link rel="stylesheet" href="{% static 'css/base.css' %}">
 
-		{% tailwind_css %}
-	</head>
+<head>
+	<title>Django Tailwind</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<script src="https://cdn.tailwindcss.com"></script>
 
-	<body class="font-serif leading-normal tracking-normal">
-		<div class="container mx-auto">
-			<section class="flex items-center justify-center h-screen">
-				<h1 class="text-5xl text-red-600">Django + Tailwind = Hate Fr</h1>
-			</section>
+</head>
+
+<body class="">
+	<div class="mt-12 font-serif bg-slate-200 flex justify-center flex-col  items-center mb-10" id="container_nav">
+		<div class="fixed w-11/12 m-4 mb-0 h-auto py-5 bg-slate-400 rounded-md border-4 border-indigo-950 " id="container">
+			
+			<nav class="flex justify-around" id="navbar">
+				
+				<a href="{% url 'menuDefault' %}"><span>Logo</span></a>
+				
+				<ul class="flex gap-5">
+					<a href="">
+						<li>UGMA</li>
+					</a><a href="">
+						<li>Contactanos</li>
+					</a><a href="">
+						<li>Sedes</li>
+					</a>
+				</ul>
+				
+				<a href="{% url 'Login' %}"><span>LOGIN</span></a>
+				
+				<!-- <form action="" class="flex h-1/2 flex-col self-center">
+					<input type="text" name="Search_base" id="" class="px-3 py-1 rounded-lg">
+				</form> -->
+			</nav>
 		</div>
-	</body>
+	</div>
+		
+<div class="mt-20">
+
+	{% block content %}
+	
+	{% endblock content %}
+
+</div>
+		
+
+</body>
+
+
 </html>

@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<script src="https://cdn.tailwindcss.com"></script>
+    <title>login</title>
+</head>
+
+<body class="bg-slate-400">
+    
+    {% block content %}
+        
+    
+    <div id="container" class="flex justify-center flex-row items-center">
+        <div id="box" class=" w-2/3 bg-slate-500 rounded-2xl p-4 max-w-96 " >
+        <div id="title" class="h-14 flex w-full justify-center items-center bg-green-500">Sign In</div>
+        <form action="" class="flex items-center flex-col justify-around  bg-slate-600 gap-10 pt-8">
+        
+            <div id="userspace" class="rounded-md p-3 w-3/4 text-white bg-neutral-700 flex justify-around"> 
+                E-mail<input type="text" name="user" id="self_user" class="w-1/2 rounded-md bg-slate-200  border-zinc-700 border-2">
+            </div>
+        
+            <div id="userspace" class="p-3 w-3/4 bg-neutral-700 text-white flex justify-around rounded-md">
+                Password<input type="text" name="user" id="self_user" class="w-1/2 rounded-md bg-slate-200 border-zinc-700 border-2 text-zinc-950">
+            </div>
+        
+        
+        
+            <a class="text-white hover:text-yellow-600" href="{% url 'Signup' %}">
+                <h2>Don't have an account? Sign up here!</h2>
+            </a>
+            
+        </form>
+        
+        
+        </div>
+            </div>
+{% endblock content %}
+</body>
+</html>

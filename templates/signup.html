@@ -1,0 +1,90 @@
+{% extends 'base.html' %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>login</title>
+</head>
+
+<body class="bg-slate-400">
+
+    {% block content %}
+    <div id="container" class="mx-auto my-5 flex flex-col items-center w-3/4">
+
+        <div id="box" class="flex justify-center flex-col items-cente bg-slate-500 rounded-2xl p-4 w-full">
+            <div id="title" class="flex  justify-center items-center bg-green-500 h-32">Sign up</div>
+
+            <form method="post" action="/signup"
+                class="flex items-center flex-col justify-around h-2/3 bg-slate-600 gap-10 py-8">
+                {% csrf_token %}
+
+                <div id="userspace" class="rounded-md p-3 w-3/4 text-white bg-neutral-700 flex justify-between">
+                    <label for="">Nombre de usuario</label>
+                    <input type="text" name="username" id="self_user"
+                        class=" text-zinc-950 w-1/2 rounded-md bg-slate-200  border-zinc-700 border-2">
+                </div>
+
+                <div id="password" class="rounded-md p-3 w-3/4 text-white bg-neutral-700 flex justify-between">
+                    <label for="">Contrasena</label>
+                    <input type="password" name="password" id="self_user"
+                        class=" text-zinc-950 w-1/2 rounded-md bg-slate-200  border-zinc-700 border-2">
+                </div>
+
+                <div id="password_conf" class="rounded-md p-3 w-3/4 text-white bg-neutral-700 flex justify-between">
+                    <label for="">Confirmar Contrasena</label>
+                    <input type="password" name="password_conf" id="self_user"
+                        class=" text-zinc-950 w-1/2 rounded-md bg-slate-200  border-zinc-700 border-2">
+                </div>
+                <!--
+                <div id="userspace" class="rounded-md p-3 w-3/4 text-white bg-neutral-700 flex justify-around">
+                    <label for="">Apellido Materno</label>
+                    <input type="text" name="user" id="self_user"
+                        class=" text-zinc-950 w-1/2 rounded-md bg-slate-200  border-zinc-700 border-2">
+                </div>
+
+                <div id="userspace" class="rounded-md p-3 w-3/4 text-white bg-neutral-700 flex justify-around">
+                    <label for="">Cedula de Identidad</label>
+                    <input type="text" name="user" id="self_user"
+                        class=" text-zinc-950 w-1/2 rounded-md bg-slate-200  border-zinc-700 border-2">
+                </div>
+
+                <div id="userspace" class="rounded-md p-3 w-3/4 text-white bg-neutral-700 flex justify-around">
+                    <label for="">Numero de Telefono</label>
+                    <input type="text" name="user" id="self_user"
+                        class=" text-zinc-950 w-1/2 rounded-md bg-slate-200  border-zinc-700 border-2">
+                </div>
+
+                <div id="userspace" class="rounded-md p-3 w-3/4 text-white bg-neutral-700 flex justify-around">
+                    <label for="">Correo Electronico</label>
+                    <input type="text" name="user" id="self_user"
+                        class=" text-zinc-950 w-1/2 rounded-md bg-slate-200  border-zinc-700 border-2">
+                </div>
+
+                <div id="userspace" class="rounded-md p-3 w-3/4 text-white bg-neutral-700 flex justify-around">
+                    <label for="">Carrera a Cursar</label>
+                    <select name="" id="" class="w-1/2 rounded-md text-black  border-whitflex justify-around">
+                        <option value="sistemas">Sistemas</option>
+                        <option value="informatica">Informatica</option>
+                        <option value="civil">Civil</option>
+                    </select>
+                </div> -->
+
+                <button type="submit"
+                    class="hover:bg-slate-400 hover:transition bg-slate-50 px-8 py-6 rounded-xl">Enviar
+                    solicitud</button>
+
+                <a class="text-white hover:text-yellow-600" href="{% url 'Login' %}">
+                    <h2>Already have an account? Log in here!</h2>
+                </a>
+            </form>
+        </div>
+    </div>
+
+    {% endblock content %}
+
+</body>
+
+</html>
