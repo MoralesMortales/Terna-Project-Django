@@ -4,7 +4,8 @@ from django.conf import settings
 
 from django.http import HttpResponseRedirect
 from django.contrib.auth.models import Group
-from . import forms,models
+
+from .models import Estudiante, Materia, Matricula
 
 from django.contrib.auth.models import User
 from django.contrib import messages
@@ -57,13 +58,17 @@ def signUp(request):
         email = request.POST['email']
         password = request.POST['password']
         password_conf = request.POST['password_conf']
+        cedula = request.POST['cedula']
+        carrera_id = request.POST['idcarrera'] #esto debe ser fk 
         
         if password == password_conf:
-              
-            myuser = User.objects.create_user(username, email, password)
             
+            myuser = User.objects.create_user(username, email, password)
+            estudiante = Estudiante.objects.create(cedula=cedula,carrera_id=carrera_id)
+            estudiante.user = myuser 
             myuser.username = username
             myuser.email = email
+            
             
             myuser.save()
             
@@ -78,3 +83,4 @@ def signUp(request):
 
 def menuDefaultPage(request):
     return render(request, "menu.html")
+
