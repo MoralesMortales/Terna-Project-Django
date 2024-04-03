@@ -13,7 +13,7 @@ class Carrera(models.Model):
 class Estudiante(models.Model):
     cedula = models.CharField(max_length=8, primary_key=True)
     telefono = models.CharField(max_length=13, blank=True)
-    nombre = models.CharField(max_length=60)
+    nombre = models.CharField(max_length=30)
     apellidoPaterno = models.CharField(max_length=30, blank=True)
     apellidoMaterno = models.CharField(max_length=30, blank=True)
     fechaNacimiento = models.DateField(default='2000-01-01')
