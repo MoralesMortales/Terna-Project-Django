@@ -5,21 +5,27 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    
     <title>Document</title>
 </head>
 <body>
-
     {% block content %}
-
-        {% if request.user.is_authenticated %}
-            <h1 class="m-auto">welcome {{ username }}</h1>
-
-		{% else %}
-            <h1 class="m-auto">welcome to the menu</h1>
-
-		{% endif %}
-
-    {% endblock content %}
     
+    <div id="content" class="flex flex-row justify-center bg-red-500">
+        
+        
+        {% if request.user.is_authenticated %}
+        <h1 class="m-auto">welcome {{ username }}</h1>
+        
+		{% else %}
+        <h1 class="m-auto">welcome to the menu</h1>
+        
+		{% endif %}
+        
+        
+    </div>
+    
+    {% endblock content %}
 </body>
 </html>

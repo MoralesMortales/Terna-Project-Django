@@ -7,9 +7,13 @@ class Carrera(models.Model):
     nombre = models.CharField(max_length = 50)
     duracion = models.PositiveSmallIntegerField(default = 5)
     
+    def __str__(self):
+        txt = "{0}"
+        return txt.format(self.nombre)
 class Estudiante(models.Model):
     cedula = models.CharField(max_length=8, primary_key=True)
-    nombres = models.CharField(max_length=60)
+    telefono = models.CharField(max_length=13, blank=True)
+    nombre = models.CharField(max_length=60)
     apellidoPaterno = models.CharField(max_length=30, blank=True)
     apellidoMaterno = models.CharField(max_length=30, blank=True)
     fechaNacimiento = models.DateField(default='2000-01-01')
@@ -26,9 +30,10 @@ class Estudiante(models.Model):
     carrera = models.ForeignKey(Carrera, null = False, blank = True, on_delete=models.CASCADE)
     
     vigencia = models.BooleanField(default=True)
+    
     def nombreCompleto(self):
         txt = "{0} {1} {2}"
-        return txt.format(self.nombres,self.apellidoPaterno,self.apellidoMaterno)
+        return txt.format(self.nombre,self.apellidoPaterno,self.apellidoMaterno)
 
     def __str__(self):
         
