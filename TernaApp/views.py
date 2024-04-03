@@ -46,6 +46,8 @@ def logOut(request):
 
 def signUp(request):
     
+    estudiante = Estudiante.objects.first()
+    
     if request.method == "POST":
         form = CarreraForm(request.POST)
         if form.is_valid():
@@ -59,11 +61,12 @@ def signUp(request):
         cedula = request.POST['cedula']
         fnaci = request.POST['fnaci']
         tlfn = request.POST['tlfn']
+        sexo_choose = request.POST['sexo']
+
         carrera_views= request.POST.get('carrera')
         carrera_views = get_object_or_404(Carrera, pk=carrera_views)
-        
         myuser = User.objects.create_user(username, email, password)
-        estudiante = Estudiante.objects.create(nombre=username,apellidoPaterno=pname,apellidoMaterno=mname,cedula=cedula,fechaNacimiento=fnaci,telefono=tlfn,carrera=carrera_views)
+        estudiante = Estudiante.objects.create(nombre=username,apellidoPaterno=pname,apellidoMaterno=mname,sexo = sexo_choose, cedula=cedula,fechaNacimiento=fnaci,telefono=tlfn,carrera=carrera_views)
         estudiante.user = myuser 
         myuser.username = username
         myuser.email = email
@@ -76,7 +79,7 @@ def signUp(request):
         messages.error(request, 'Something went wrong')
         
     carreras = Carrera.objects.all()
-    return render(request, 'signup.html', {'form': form, 'carreras': carreras})
+    return render(request, 'signup.html', {'form': form, 'carreras': carreras, 'estudiante': estudiante})
 
 def menuDefaultPage(request):
     return render(request, "menu.html")

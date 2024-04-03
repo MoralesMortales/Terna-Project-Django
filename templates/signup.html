@@ -27,17 +27,17 @@
                     {% csrf_token %}
 
                     <div id="userspace" class="rounded-md p-3 w-3/4 text-white bg-neutral-700 flex justify-between">
-                        <label for="">Nombres personales</label>
+                        <label for="">Nombre</label>
                         <input type="text" name="username" id="self_username"
-                        class=" text-zinc-950 w-1/2 rounded-md bg-slate-200  border-zinc-700 border-2">
+                            class=" text-zinc-950 w-1/2 rounded-md bg-slate-200  border-zinc-700 border-2">
                     </div>
-                    
+
                     <div id="userspace" class="rounded-md p-3 w-3/4 text-white bg-neutral-700 flex justify-around">
                         <label for="">Apellido Paterno</label>
                         <input type="text" name="pname" id="self_user"
                             class=" text-zinc-950 w-1/2 rounded-md bg-slate-200  border-zinc-700 border-2">
                     </div>
-                  
+
                     <div id="userspace" class="rounded-md p-3 w-3/4 text-white bg-neutral-700 flex justify-around">
                         <label for="">Apellido Materno</label>
                         <input type="text" name="mname" id="self_user"
@@ -58,10 +58,13 @@
 
                     <div id="sexo" class="rounded-md p-3 w-3/4 text-white bg-neutral-700 flex justify-between">
                         <label for="">Sexo</label>
-                        <input type="555" name="cedula" id="self-email"
-                            class=" text-zinc-950 w-1/2 rounded-md bg-slate-200  border-zinc-700 border-2">
+                        <select name="sexo" id="id_mi_campo" class="text-black">
+                            {% for key, value in estudiante.sexos %}
+                            <option value="{{ key }}">{{ value }}</option>
+                            {% endfor %}
+                        </select>
                     </div>
-                
+
                     <div id="email" class="rounded-md p-3 w-3/4 text-white bg-neutral-700 flex justify-between">
                         <label for="">Correo Electronico</label>
                         <input type="email" name="email" id="self-email"
@@ -89,7 +92,7 @@
                     <div id="carrera_select"
                         class="rounded-md p-3 w-1/2 text-white bg-neutral-700 flex flex-col justify-around w-3/4">
                         <label for="id_carrera">Selecciona una carrera:</label>
-                       
+
                         <select name="carrera" id="id_carrera" class="text-black">
                             {% for carrera in carreras %}
                             <option value="{{ carrera.pk }}">{{ carrera.nombre }}</option>

@@ -21,7 +21,8 @@ class Estudiante(models.Model):
     sexos = [
         
         ('M', 'Masculino'), 
-        ('F', 'Femenino')   
+        ('F', 'Femenino'),   
+        ('R', 'Maquina'),   
           
             ]
     
