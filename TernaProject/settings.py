@@ -31,7 +31,6 @@ INSTALLED_APPS = [
     'theme',
     'django_browser_reload',
     'TernaApp',
-    "widget_tweaks",
 ]
 
 NPM_BIN_PATH = "C:/Program Files/nodejs/npm.cmd"

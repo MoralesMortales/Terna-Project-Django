@@ -1,4 +1,4 @@
-from .views import BasePage,logIn,logOut,signUp,menuDefaultPage
+from .views import BasePage,logIn,logOut,signUp,menuDefaultPage, createNew
 from django.urls import path
 
 urlpatterns = [
@@ -6,4 +6,5 @@ urlpatterns = [
    path("login", logIn, name="Login"),
    path("logout", logOut, name="Logout"),
    path("signup", signUp, name="Signup"),
+   path("createNew", createNew, name="Create"),
 ]

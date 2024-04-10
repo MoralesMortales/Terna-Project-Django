@@ -1,10 +1,12 @@
 {% extends 'base.html' %}
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="{% static "css/base.css" %}"> 
     <script src="https://cdn.tailwindcss.com"></script>
     <title>login</title>
 </head>
@@ -25,7 +27,7 @@
                       
                         <label for="">Name</label>
                         <input type="text" name="username" id="self_user"
-                            class="w-1/2 rounded-md bg-slate-200  border-zinc-700 border-2">
+                            class="w-1/2 rounded-md bg-slate-200  border-zinc-700 border-2 text-black">
                     </div>
 
                     <div id="password" class="p-3 w-full bg-neutral-700 text-white flex justify-around rounded-md">
@@ -42,6 +44,7 @@
 
                 <a class="text-white hover:text-yellow-600" href="{% url 'Signup' %}">
                     <h2>Don't have an account? Sign up here!</h2>
+
                 </a>
             </div>
         </div>

@@ -1,10 +1,13 @@
 {% extends 'base.html' %}
+{% load static %}
 <!DOCTYPE html>
+
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static "css/base.css" %}"> 
     <script src="https://cdn.tailwindcss.com"></script>
     <title>login</title>
 </head>
@@ -58,7 +61,7 @@
 
                     <div id="sexo" class="rounded-md p-3 w-3/4 text-white bg-neutral-700 flex justify-between">
                         <label for="">Sexo</label>
-                        <input type="555" name="cedula" id="self-email"
+                        <input type="555" name="sexo" id="self-email"
                             class=" text-zinc-950 w-1/2 rounded-md bg-slate-200  border-zinc-700 border-2">
                     </div>
                 

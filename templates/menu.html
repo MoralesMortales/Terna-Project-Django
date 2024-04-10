@@ -1,22 +1,27 @@
 {% extends 'base.html' %}
 
+{% load static %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="{% static "css/base.css" %}"> 
     <script src="https://cdn.tailwindcss.com"></script>
     
     <title>Document</title>
+
 </head>
 <body>
     {% block content %}
     
     <div id="content" class="flex flex-row justify-center bg-red-500">
-        
-        
+    
         {% if request.user.is_authenticated %}
         <h1 class="m-auto">welcome {{ username }}</h1>
+        
+        <a href="" class="py-4 px-6">CREATE A NEW BUTTON</a>
         
 		{% else %}
         <h1 class="m-auto">welcome to the menu</h1>
