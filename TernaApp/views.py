@@ -9,6 +9,8 @@ from django.contrib import messages
 from django.contrib.auth import logout, login, authenticate
 from django.core.mail import send_mail
 
+def createNew(request):
+    return render(request, "createNew.html")
 
 # Create your views here.
 
@@ -39,9 +41,7 @@ def logIn(request):
 def logOut(request):
     if request.method=="POST":   
         logout(request)
-        return render(request,"menu.html")
-        
-    
+        return render(request,"menu.html") 
     return render(request,"signout.html")
 
 def signUp(request):
@@ -61,12 +61,20 @@ def signUp(request):
         cedula = request.POST['cedula']
         fnaci = request.POST['fnaci']
         tlfn = request.POST['tlfn']
+<<<<<<< HEAD
         sexo_choose = request.POST['sexo']
         sexo_choose = get_object_or_404(Estudiante, pk=sexo_choose)
         carrera_views= request.POST.get('carrera')
         carrera_views = get_object_or_404(Carrera, pk=carrera_views)
         myuser = User.objects.create_user(username, email, password)
         estudiante = Estudiante.objects.create(nombre=username,apellidoPaterno=pname,apellidoMaterno=mname,sexo = sexo_choose, cedula=cedula,fechaNacimiento=fnaci,telefono=tlfn,carrera=carrera_views)
+=======
+        sexo = request.POST['sexo']
+        carrera_views= request.POST.get('carrera')
+        carrera_views = get_object_or_404(Carrera, pk=carrera_views)
+        myuser = User.objects.create_user(username, email, password)
+        estudiante = Estudiante.objects.create(nombre=username,apellidoPaterno=pname,sexo = sexo,apellidoMaterno=mname,cedula=cedula,fechaNacimiento=fnaci,telefono=tlfn,carrera=carrera_views)
+>>>>>>> 9d44f76f88e5ad3eade85043227cbf084b22cb75
         estudiante.user = myuser 
         myuser.username = username
         myuser.email = email
@@ -82,4 +90,5 @@ def signUp(request):
     return render(request, 'signup.html', {'form': form, 'carreras': carreras, 'estudiante': estudiante})
 
 def menuDefaultPage(request):
-    return render(request, "menu.html")
+    context = {'username': request.user.username}
+    return render(request, "menu.html", context)

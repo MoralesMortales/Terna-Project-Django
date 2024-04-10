@@ -1,9 +1,12 @@
 {% extends 'base.html' %}
+{% load static %}
 
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+	<link rel="stylesheet" href="{% static "css/base.css" %}"> 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<script src="https://cdn.tailwindcss.com"></script>
     <title>login</title>
@@ -22,9 +25,9 @@
         <button class="bg-slate-50 px-4 py-4 rounded-lg hover:transition-all hover:bg-slate-400 transition-all" value="logout-btn">Logout</button>
             
         </form>
-            
-            
+               
         </div>
+
     </div>
     {% endblock content %}
 </body>

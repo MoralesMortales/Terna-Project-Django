@@ -1,10 +1,13 @@
 {% extends 'base.html' %}
+{% load static %}
 <!DOCTYPE html>
+
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static "css/base.css" %}"> 
     <script src="https://cdn.tailwindcss.com"></script>
     <title>login</title>
 </head>
@@ -58,11 +61,16 @@
 
                     <div id="sexo" class="rounded-md p-3 w-3/4 text-white bg-neutral-700 flex justify-between">
                         <label for="">Sexo</label>
+<<<<<<< HEAD
                         <select name="sexo" id="id_mi_campo" class="text-black">
                             {% for sexo, value in estudiante.sexos %}
                                 <option value="{{ sexo }}">{{ value }}</option>
                             {% endfor %}
                         </select>
+=======
+                        <input type="555" name="sexo" id="self-email"
+                            class=" text-zinc-950 w-1/2 rounded-md bg-slate-200  border-zinc-700 border-2">
+>>>>>>> 9d44f76f88e5ad3eade85043227cbf084b22cb75
                     </div>
                 
                     <div id="email" class="rounded-md p-3 w-3/4 text-white bg-neutral-700 flex justify-between">
