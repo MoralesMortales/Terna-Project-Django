@@ -1,13 +1,13 @@
-from django.shortcuts import get_object_or_404, redirect, render
-from django.views.generic import TemplateView
-from django.conf import settings
-from .forms import CarreraForm
-from django.contrib.auth.models import Group
-from .models import Estudiante, Carrera
-from django.contrib.auth.models import User
-from django.contrib import messages
-from django.contrib.auth import logout, login, authenticate
-from django.core.mail import send_mail
+from django.shortcuts import get_object_or_404, redirect, render #type:ignore
+from django.views.generic import TemplateView #type:ignore
+from django.conf import settings #type:ignore
+from .forms import CarreraForm #type:ignore
+from django.contrib.auth.models import Group #type:ignore
+from .models import Estudiante, Carrera #type:ignore
+from django.contrib.auth.models import User #type:ignore
+from django.contrib import messages #type:ignore
+from django.contrib.auth import logout, login, authenticate  #type:ignore
+from django.core.mail import send_mail #type:ignore
 
 def createNew(request):
     return render(request, "createNew.html")
@@ -61,20 +61,15 @@ def signUp(request):
         cedula = request.POST['cedula']
         fnaci = request.POST['fnaci']
         tlfn = request.POST['tlfn']
-<<<<<<< HEAD
-        sexo_choose = request.POST['sexo']
-        sexo_choose = get_object_or_404(Estudiante, pk=sexo_choose)
+
         carrera_views= request.POST.get('carrera')
         carrera_views = get_object_or_404(Carrera, pk=carrera_views)
         myuser = User.objects.create_user(username, email, password)
-        estudiante = Estudiante.objects.create(nombre=username,apellidoPaterno=pname,apellidoMaterno=mname,sexo = sexo_choose, cedula=cedula,fechaNacimiento=fnaci,telefono=tlfn,carrera=carrera_views)
-=======
         sexo = request.POST['sexo']
         carrera_views= request.POST.get('carrera')
         carrera_views = get_object_or_404(Carrera, pk=carrera_views)
         myuser = User.objects.create_user(username, email, password)
         estudiante = Estudiante.objects.create(nombre=username,apellidoPaterno=pname,sexo = sexo,apellidoMaterno=mname,cedula=cedula,fechaNacimiento=fnaci,telefono=tlfn,carrera=carrera_views)
->>>>>>> 9d44f76f88e5ad3eade85043227cbf084b22cb75
         estudiante.user = myuser 
         myuser.username = username
         myuser.email = email

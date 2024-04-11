@@ -15,12 +15,14 @@
 
 <body class="">
 	<div class="mt-12 font-serif bg-slate-200 flex justify-center flex-col  items-center mb-10" id="container_nav">
-		<div class="fixed w-11/12 m-4 mb-0 h-auto py-5 bg-slate-400 rounded-md border-4 border-indigo-950 "
+		<div class="fixed w-11/12 m-4 mb-0 h-auto bg-slate-400 rounded-md border-4 border-indigo-950 "
 			id="container">
 
-			<nav class="flex justify-around" id="navbar">
+			<nav class="flex justify-around items-center h-16" id="navbar">
 
-				<a href="{% url 'menuDefault' %}"><span>Logo</span></a>
+				<a href="{% url 'menuDefault' %}" class="h-full">
+					<img class="h-full scale-110" src="{% static "img/png-transparent-atlantic-university-columbia-university-ugma-facultad-de-derecho-student-student-angle-people-university-removebg-preview.png" %}" alt="">
+				</a>
 
 				<ul class="flex gap-5">
 					<a href="">

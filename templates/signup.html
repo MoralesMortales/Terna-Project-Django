@@ -61,16 +61,15 @@
 
                     <div id="sexo" class="rounded-md p-3 w-3/4 text-white bg-neutral-700 flex justify-between">
                         <label for="">Sexo</label>
-<<<<<<< HEAD
-                        <select name="sexo" id="id_mi_campo" class="text-black">
+
+                        <select name="sexo" id="id_mi_campo" class="text-black w-1/2">
+                            
                             {% for sexo, value in estudiante.sexos %}
-                                <option value="{{ sexo }}">{{ value }}</option>
+                                <option value="{{ sexo }}" class="">{{ value }}</option>
                             {% endfor %}
+
                         </select>
-=======
-                        <input type="555" name="sexo" id="self-email"
-                            class=" text-zinc-950 w-1/2 rounded-md bg-slate-200  border-zinc-700 border-2">
->>>>>>> 9d44f76f88e5ad3eade85043227cbf084b22cb75
+
                     </div>
                 
                     <div id="email" class="rounded-md p-3 w-3/4 text-white bg-neutral-700 flex justify-between">
@@ -97,8 +96,10 @@
                             class=" text-zinc-950 w-1/2 rounded-md bg-slate-200  border-zinc-700 border-2">
                     </div>
 
-                    <div id="carrera_select"
-                        class="rounded-md p-3 w-1/2 text-white bg-neutral-700 flex flex-col justify-around w-3/4">
+                    <div 
+                    id="carrera_select"
+                    class="rounded-md p-3 text-white bg-neutral-700 flex flex-col justify-around w-2/3 col-span-2">
+                        
                         <label for="id_carrera">Selecciona una carrera:</label>
                        
                         <select name="carrera" id="id_carrera" class="text-black">
