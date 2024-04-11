@@ -51,7 +51,8 @@ class profesor(models.Model):
     telefono = models.CharField(max_length=13, blank=True)
     nombre = models.CharField(max_length=60)
     apellido = models.CharField(max_length=60)
-    materias = models.CharField(max_length=60)
+    materia = models.CharField(max_length=60)
+    
     sexos = [
         
         ('M', 'Masculino'), 
