@@ -9,8 +9,12 @@ from django.contrib import messages #type:ignore
 from django.contrib.auth import logout, login, authenticate  #type:ignore
 from django.core.mail import send_mail #type:ignore
 
+def UgmaSite(request):
+    return render(request, "ugmaPage.html")
+
 def createNew(request):
     return render(request, "createNew.html")
+
 
 # Create your views here.
 

@@ -45,6 +45,31 @@ class Estudiante(models.Model):
             
         txt = "{0} | {1}"
         return txt.format(self.nombreCompleto(), vigente_act) 
+
+class profesor(models.Model):
+    cedula = models.CharField(max_length=8, primary_key=True)
+    telefono = models.CharField(max_length=13, blank=True)
+    nombre = models.CharField(max_length=60)
+    apellido = models.CharField(max_length=60)
+    materia = models.CharField(max_length=60)
+    
+    sexos = [
+        
+        ('M', 'Masculino'), 
+        ('F', 'Femenino')   
+          
+            ]
+    
+    sexo = models.CharField(max_length = 1, choices=sexos, default='F')
+    
+    def nombreCompleto(self):
+        txt = "{0} {1} {2}"
+        return txt.format(self.nombre,self.apellidoPaterno,self.apellidoMaterno)
+
+    def __str__(self):
+                    
+        return self.nombreCompleto() 
+
     
 class Materia(models.Model):
   codigo = models.CharField(max_length=10, primary_key = True)
