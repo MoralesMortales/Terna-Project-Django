@@ -3,7 +3,7 @@ from django.views.generic import TemplateView #type:ignore
 from django.conf import settings #type:ignore
 from .forms import CarreraForm #type:ignore
 from django.contrib.auth.models import Group #type:ignore
-from .models import Estudiante, Carrera #type:ignore
+from .models import Carrera, Estudiante #type:ignore
 from django.contrib.auth.models import User #type:ignore
 from django.contrib import messages #type:ignore
 from django.contrib.auth import logout, login, authenticate  #type:ignore
@@ -27,14 +27,14 @@ class FormularioEmail(TemplateView):
 
 def logIn(request):
     if request.method == "POST":
-        username = request.POST['username']
+        theusername = request.POST['theusername']
         password = request.POST['password']
     
-        myuser = authenticate(username = username, password = password)
+        myuser = authenticate(theusername = theusername, password = password)
         
         if myuser is not None:
             login(request,myuser)
-            return render(request,"menu.html", {'username':username})
+            return render(request,"menu.html", {'theusername':theusername})
             
         else:
             messages.error(request, 'Wrong username or password')
@@ -50,35 +50,38 @@ def logOut(request):
 
 def signUp(request):
     
-    estudiante = Estudiante.objects.first()
+    """ estudiante = Estudiante.objects.first() """
     
     if request.method == "POST":
         form = CarreraForm(request.POST)
         if form.is_valid():
             form.save()
-        username = request.POST['username']
-        pname = request.POST['pname']
-        mname = request.POST['mname']
-        email = request.POST['email']
-        password = request.POST['password']
+        the_user_name = request.POST['the_user_name']
+        pname = request.POST['father_lastname']
+        mname = request.POST['mother_lastname']
+        theemail = request.POST['email']
+        password = request.POST['thepassword']
         password_conf = request.POST['password_conf']
         cedula = request.POST['cedula']
         fnaci = request.POST['fnaci']
         tlfn = request.POST['tlfn']
-
-        carrera_views= request.POST.get('carrera')
-        carrera_views = get_object_or_404(Carrera, pk=carrera_views)
-        myuser = User.objects.create_user(username, email, password)
         sexo = request.POST['sexo']
         carrera_views= request.POST.get('carrera')
         carrera_views = get_object_or_404(Carrera, pk=carrera_views)
-        myuser = User.objects.create_user(username, email, password)
-        estudiante = Estudiante.objects.create(nombre=username,apellidoPaterno=pname,sexo = sexo,apellidoMaterno=mname,cedula=cedula,fechaNacimiento=fnaci,telefono=tlfn,carrera=carrera_views)
+        
+        myuser = User.objects.create_user(username = the_user_name, email =  theemail, password = password)
+        
+        estudiante = Estudiante.objects.create(nombre=the_user_name, apellidoPaterno = pname ,sexo = sexo, apellidoMaterno = mname, cedula=cedula,fechaNacimiento=fnaci, telefono=tlfn, carrera=carrera_views)
+        
         estudiante.user = myuser 
-        myuser.username = username
-        myuser.email = email
+        
+        """ myuser.username = theusername
+        myuser.email = email """
+        
         myuser.save() 
+        
         messages.success(request, "Congrats, you have signed up")
+        
         return redirect("Login")
         
     else:
@@ -86,8 +89,9 @@ def signUp(request):
         messages.error(request, 'Something went wrong')
         
     carreras = Carrera.objects.all()
-    return render(request, 'signup.html', {'form': form, 'carreras': carreras, 'estudiante': estudiante})
+    
+    return render(request, 'signup.html', {'form': form, 'carreras': carreras})
 
 def menuDefaultPage(request):
-    context = {'username': request.user.username}
+    context = {'the_user_name': request.user.username}
     return render(request, "menu.html", context)

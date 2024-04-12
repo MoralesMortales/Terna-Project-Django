@@ -1,7 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
 from requests import request
-
 class Carrera(models.Model):
     codigo = models.CharField(max_length = 50, primary_key = True)
     nombre = models.CharField(max_length = 50)
@@ -10,6 +9,7 @@ class Carrera(models.Model):
     def __str__(self):
         txt = "{0}"
         return txt.format(self.nombre)
+
 class Estudiante(models.Model):
     cedula = models.CharField(max_length=8, primary_key=True)
     telefono = models.CharField(max_length=13, blank=True)
@@ -55,6 +55,6 @@ class Materia(models.Model):
   
 class Matricula(models.Model):
     id = models.AutoField(primary_key = True)
-    estudiante = models.ForeignKey(Estudiante, null = False, blank = False, on_delete = models.CASCADE)
+    """ estudiante = models.ForeignKey(Estudiante, null = False, blank = False, on_delete = models.CASCADE) """
     materia = models.ForeignKey(Materia, null = False, blank = False, on_delete = models.CASCADE)
-    fechaMatricula = models.DateTimeField(auto_now_add = True)
+    fechaMatricula = models.DateTimeField(auto_now_add = True) 

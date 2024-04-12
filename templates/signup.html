@@ -30,39 +30,41 @@
                     {% csrf_token %}
 
                     <div id="userspace" class="rounded-md p-3 w-3/4 text-white bg-neutral-700 flex justify-between">
+                        
                         <label for="">Nombre</label>
-                        <input type="text" name="username" id="self_username"
+                        <input type="text" name="the_user_name" id="theusernameid"
                         class=" text-zinc-950 w-1/2 rounded-md bg-slate-200  border-zinc-700 border-2">
+                    
                     </div>
                     
                     <div id="userspace" class="rounded-md p-3 w-3/4 text-white bg-neutral-700 flex justify-around">
                         <label for="">Apellido Paterno</label>
-                        <input type="text" name="pname" id="self_user"
+                        <input type="text" name="father_lastname" id="thefatherlastnameid"
                             class=" text-zinc-950 w-1/2 rounded-md bg-slate-200  border-zinc-700 border-2">
                     </div>
                   
                     <div id="userspace" class="rounded-md p-3 w-3/4 text-white bg-neutral-700 flex justify-around">
                         <label for="">Apellido Materno</label>
-                        <input type="text" name="mname" id="self_user"
+                        <input type="text" name="mother_lastname" id="themotherlastnameid"
                             class=" text-zinc-950 w-1/2 rounded-md bg-slate-200  border-zinc-700 border-2">
                     </div>
 
                     <div id="cedula" class="rounded-md p-3 w-3/4 text-white bg-neutral-700 flex justify-between">
                         <label for="">Cedula</label>
-                        <input type="number" name="cedula" id="self-email"
+                        <input type="number" name="the_cedula" id="thecedulaid"
                             class=" text-zinc-950 w-1/2 rounded-md bg-slate-200  border-zinc-700 border-2">
                     </div>
 
                     <div id="fnaci" class="rounded-md p-3 w-3/4 text-white bg-neutral-700 flex justify-between">
                         <label for="">Fecha de Nacimiento</label>
-                        <input type="date" name="fnaci" id="self-email"
+                        <input type="date" name="fnaci" id="thefnaciid"
                             class=" text-zinc-950 w-1/2 rounded-md bg-slate-200  border-zinc-700 border-2">
                     </div>
 
                     <div id="sexo" class="rounded-md p-3 w-3/4 text-white bg-neutral-700 flex justify-between">
                         <label for="">Sexo</label>
 
-                        <select name="sexo" id="id_mi_campo" class="text-black w-1/2">
+                        <select name="sexo" id="sexid" class="text-black w-1/2">
                             
                             {% for sexo, value in estudiante.sexos %}
                                 <option value="{{ sexo }}" class="">{{ value }}</option>
@@ -78,21 +80,23 @@
                             class=" text-zinc-950 w-1/2 rounded-md bg-slate-200  border-zinc-700 border-2">
                     </div>
 
+{% comment %} colocar por gmail autenticator {% endcomment %}
+
                     <div id="password" class="rounded-md p-3 w-3/4 text-white bg-neutral-700 flex justify-between">
                         <label for="">Contrasena</label>
-                        <input type="password" name="password" id="self_password"
+                        <input type="password" name="thepassword" id="thepasswordid"
                             class=" text-zinc-950 w-1/2 rounded-md bg-slate-200  border-zinc-700 border-2">
                     </div>
 
                     <div id="password_conf" class="rounded-md p-3 w-3/4 text-white bg-neutral-700 flex justify-between">
                         <label for="">Confirmar Contrasena</label>
-                        <input type="password" name="password_conf" id=""
+                        <input type="password" name="password_conf" id="thepasswordconfid"
                             class=" text-zinc-950 w-1/2 rounded-md bg-slate-200  border-zinc-700 border-2">
                     </div>
 
                     <div id="tlfn" class="rounded-md p-3 w-3/4 text-white bg-neutral-700 flex justify-around">
                         <label for="">Numero de Telefono</label>
-                        <input type="text" name="tlfn" id="self_user"
+                        <input type="text" name="tlfn" id="thetlfnid"
                             class=" text-zinc-950 w-1/2 rounded-md bg-slate-200  border-zinc-700 border-2">
                     </div>
 
