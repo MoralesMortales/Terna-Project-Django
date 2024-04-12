@@ -34,7 +34,9 @@ def logIn(request):
         
         if myuser is not None:
             login(request,myuser)
-            return render(request,"menu.html", {'theusername':myuser.first_name})
+            
+            estudiante = Estudiante.objects.get(pk=email)
+            return render(request,"menu.html", {'theusername':myuser.first_name,'est': estudiante})
             
         else:
             messages.error(request, 'Wrong username or password')
@@ -93,5 +95,8 @@ def signUp(request):
     return render(request, 'signup.html', {'form': form, 'carreras': carreras, 'estudiante': Estudiante})
 
 def menuDefaultPage(request):
-    context = {'the_user_name': request.user.username}
-    return render(request, "menu.html", context)
+    context = {}
+    if request.user.is_authenticated:
+        context['the_user_name'] = request.user.first_name
+        return render(request, "menu.html", context) 
+    return render(request, "menu.html")

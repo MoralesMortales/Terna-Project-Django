@@ -1,3 +1,11 @@
+
+* {
+    font-family: "Besley", serif;
+    font-optical-sizing: auto;
+    font-weight:200;
+    font-style: normal;
+  }
+
 body{
     background-color: rgb(78, 82, 81);
 }

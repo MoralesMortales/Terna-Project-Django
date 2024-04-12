@@ -12,10 +12,10 @@ class Carrera(models.Model):
         return txt.format(self.nombre)
 
 class Estudiante(models.Model):
-    cedula = models.CharField(max_length=8, primary_key=True)
+    cedula = models.CharField(max_length=8, unique=True)
     telefono = models.CharField(max_length=13, blank=True)
     nombre = models.CharField(max_length=30)
-    email = models.CharField(max_length=50, blank=True, unique=True)
+    email = models.CharField(max_length=50, blank=True, primary_key=True)
     apellidoPaterno = models.CharField(max_length=30, blank=True)
     apellidoMaterno = models.CharField(max_length=30, blank=True)
     fechaNacimiento = models.DateField(default='2000-01-01')
