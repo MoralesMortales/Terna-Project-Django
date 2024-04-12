@@ -1,9 +1,10 @@
 from django.db import models
 from django.contrib.auth.models import User
 from requests import request
+
 class Carrera(models.Model):
     codigo = models.CharField(max_length = 50, primary_key = True)
-    nombre = models.CharField(max_length = 50)
+    nombre = models.CharField(max_length = 60)
     duracion = models.PositiveSmallIntegerField(default = 5)
     
     def __str__(self):
@@ -14,6 +15,7 @@ class Estudiante(models.Model):
     cedula = models.CharField(max_length=8, primary_key=True)
     telefono = models.CharField(max_length=13, blank=True)
     nombre = models.CharField(max_length=30)
+    email = models.CharField(max_length=50, blank=True, unique=True)
     apellidoPaterno = models.CharField(max_length=30, blank=True)
     apellidoMaterno = models.CharField(max_length=30, blank=True)
     fechaNacimiento = models.DateField(default='2000-01-01')

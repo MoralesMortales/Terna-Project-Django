@@ -27,14 +27,14 @@ class FormularioEmail(TemplateView):
 
 def logIn(request):
     if request.method == "POST":
-        theusername = request.POST['theusername']
+        email = request.POST['theemail']
         password = request.POST['password']
     
-        myuser = authenticate(theusername = theusername, password = password)
+        myuser = authenticate(request, username = email, password = password)
         
         if myuser is not None:
             login(request,myuser)
-            return render(request,"menu.html", {'theusername':theusername})
+            return render(request,"menu.html", {'theusername':myuser.first_name})
             
         else:
             messages.error(request, 'Wrong username or password')
@@ -62,16 +62,16 @@ def signUp(request):
         theemail = request.POST['email']
         password = request.POST['thepassword']
         password_conf = request.POST['password_conf']
-        cedula = request.POST['cedula']
+        cedula = request.POST['the_cedula']
         fnaci = request.POST['fnaci']
         tlfn = request.POST['tlfn']
         sexo = request.POST['sexo']
         carrera_views= request.POST.get('carrera')
         carrera_views = get_object_or_404(Carrera, pk=carrera_views)
         
-        myuser = User.objects.create_user(username = the_user_name, email =  theemail, password = password)
+        myuser = User.objects.create_user(first_name = the_user_name, email =  theemail, last_name = pname, username = theemail, password = password)
         
-        estudiante = Estudiante.objects.create(nombre=the_user_name, apellidoPaterno = pname ,sexo = sexo, apellidoMaterno = mname, cedula=cedula,fechaNacimiento=fnaci, telefono=tlfn, carrera=carrera_views)
+        estudiante = Estudiante.objects.create(nombre=the_user_name, apellidoPaterno = pname ,email =  theemail, sexo = sexo, apellidoMaterno = mname, cedula=cedula,fechaNacimiento=fnaci, telefono=tlfn, carrera=carrera_views)
         
         estudiante.user = myuser 
         
@@ -90,7 +90,7 @@ def signUp(request):
         
     carreras = Carrera.objects.all()
     
-    return render(request, 'signup.html', {'form': form, 'carreras': carreras})
+    return render(request, 'signup.html', {'form': form, 'carreras': carreras, 'estudiante': Estudiante})
 
 def menuDefaultPage(request):
     context = {'the_user_name': request.user.username}
