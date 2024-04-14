@@ -15,8 +15,7 @@ SECRET_KEY = 'django-insecure-wz=$pfn**$)-*0*0s^s*#m57f7ii=0_dkff)-@&csl!wip@jio
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
-
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost']
 
 # Application definition
 
@@ -138,3 +137,5 @@ EMAIL_HOST_PASSWORD = "nbkx kqwg usau bmsf"
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+X_FRAME_OPTIONS = 'SAMEORIGIN'

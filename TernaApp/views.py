@@ -97,6 +97,11 @@ def signUp(request):
 def menuDefaultPage(request):
     context = {}
     if request.user.is_authenticated:
-        context['the_user_name'] = request.user.first_name
+        email = request.user.email
+        estudiante = Estudiante.objects.get(pk=email)
+        context['est'] = estudiante
         return render(request, "menu.html", context) 
     return render(request, "menu.html")
+
+def ugmaPage(request):
+    return render(request, "ugmaPage.html")

@@ -16,10 +16,10 @@
 <body>
     {% block content %}
     
-    <div id="content" class="flex flex-col justify-center items-center bg-red-500">
+    <div id="content_menu" class="flex flex-col justify-center items-center h-screen">
         
                 {% if request.user.is_authenticated %}
-                <h1 class="m-auto">welcome {{ the_user_name }}</h1>
+                <h1 class="m-auto">welcome {{ est.nombre }}</h1>
                 
         
         <div id="box" class="bg-slate-200 rounded-3xl w-2/3 flex justify-center flex-col">

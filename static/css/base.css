@@ -4,8 +4,13 @@
     font-optical-sizing: auto;
     font-weight:200;
     font-style: normal;
+    box-sizing: border-box;
   }
 
 body{
-    background-color: rgb(78, 82, 81);
+    background-color: rgb(217, 226, 224);
+}
+
+#content_menu {
+  background: linear-gradient(to bottom, #ffAE00, #f9e866);
 }
