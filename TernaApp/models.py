@@ -60,3 +60,7 @@ class Matricula(models.Model):
     """ estudiante = models.ForeignKey(Estudiante, null = False, blank = False, on_delete = models.CASCADE) """
     materia = models.ForeignKey(Materia, null = False, blank = False, on_delete = models.CASCADE)
     fechaMatricula = models.DateTimeField(auto_now_add = True) 
+    
+class Imagen(models.Model):
+    nombre = models.CharField(max_length=100)
+    imagen = models.ImageField(upload_to='imagenes/')

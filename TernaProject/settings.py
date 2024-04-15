@@ -139,3 +139,6 @@ EMAIL_HOST_PASSWORD = "nbkx kqwg usau bmsf"
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 X_FRAME_OPTIONS = 'SAMEORIGIN'
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
