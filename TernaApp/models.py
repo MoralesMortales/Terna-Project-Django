@@ -18,9 +18,18 @@ class publicaciones(models.Model):
     
 class Imagen(models.Model):
     nombre = models.CharField(max_length=100)
-    publicaciones = models.ForeignKey('TernaApp.publicaciones', related_name='imagenes',default=None, on_delete=models.CASCADE)
+    publicaciones = models.ForeignKey('publicaciones', related_name='imagenes', on_delete=models.CASCADE)
     imagen = models.ImageField(upload_to='imagenes/')
-    
+
+    def save(self, *args, **kwargs):
+        # Si la instancia de Imagen aún no tiene un ID asignado, es una nueva instancia
+        if not self.pk:
+            # Guarda la instancia para obtener un ID asignado
+            super().save(*args, **kwargs)
+            # Asigna el ID recién asignado a publicaciones_id
+            self.publicaciones_id = self.pk
+        # Guarda la instancia nuevamente con el publicaciones_id asignado
+        super().save(*args, **kwargs)
 
 class Estudiante(models.Model):
     cedula = models.CharField(max_length=8, unique=True)

@@ -3,7 +3,7 @@ from django.views.generic import TemplateView #type:ignore
 from django.conf import settings #type:ignore
 from .forms import CarreraForm, ImagenForm #type:ignore
 from django.contrib.auth.models import Group #type:ignore
-from .models import Carrera, Estudiante #type:ignore
+from .models import Carrera, Estudiante, publicaciones, Imagen #type:ignore
 from django.contrib.auth.models import User #type:ignore
 from django.contrib import messages #type:ignore
 from django.contrib.auth import logout, login, authenticate  #type:ignore
@@ -12,12 +12,19 @@ from django.core.mail import send_mail #type:ignore
 def UgmaSite(request):
     return render(request, "ugmaPage.html")
 
+
 def createNew(request):
     if request.method == 'POST':
         form = ImagenForm(request.POST, request.FILES)
         if form.is_valid():
-            form.save()
-            messages.success(request, '¡La imagen se ha subido correctamente!')
+            # Guardar los datos de la imagen en la tabla ternaapp_publicaciones
+            nueva_publicacion = publicaciones()
+            nueva_publicacion.nombre = form.cleaned_data['nombre']
+            nueva_publicacion.description = form.cleaned_data['description']
+            nueva_publicacion.imagen = form.cleaned_data['imagen']
+            nueva_publicacion.save()
+            
+            # Redireccionar a la vista correcta
             return redirect('menuDefault')
     else:
         form = ImagenForm()
@@ -44,7 +51,7 @@ def logIn(request):
         if myuser is not None:
             login(request,myuser)
             
-            estudiante = Estudiante.objects.get(username=email)
+            estudiante = Estudiante.objects.get(email=email)
             return render(request,"menu.html", {'theusername':myuser.first_name,'est': estudiante})
             
         else:

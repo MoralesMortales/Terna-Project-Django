@@ -1,7 +1,7 @@
 
 from django.contrib.auth.models import User
 from django import forms
-from .models import Carrera, Estudiante, Imagen
+from .models import Carrera, Estudiante, Imagen, publicaciones
 
 class CarreraForm(forms.ModelForm):
     class Meta:
@@ -24,5 +24,5 @@ class EstudianteForm(forms.ModelForm):
             
 class ImagenForm(forms.ModelForm):
     class Meta:
-        model = Imagen
-        fields = ['nombre', 'imagen']
+        model = publicaciones
+        fields = ['nombre', 'description', 'imagen']
