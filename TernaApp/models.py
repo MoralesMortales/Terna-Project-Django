@@ -11,6 +11,17 @@ class Carrera(models.Model):
         txt = "{0}"
         return txt.format(self.nombre)
 
+class publicaciones(models.Model):
+    nombre = models.CharField(max_length=100)
+    description = models.TextField(max_length=1200)
+    imagen = models.ImageField(upload_to='imagenes/')
+    
+class Imagen(models.Model):
+    nombre = models.CharField(max_length=100)
+    publicaciones = models.ForeignKey('TernaApp.publicaciones', related_name='imagenes',default=None, on_delete=models.CASCADE)
+    imagen = models.ImageField(upload_to='imagenes/')
+    
+
 class Estudiante(models.Model):
     cedula = models.CharField(max_length=8, unique=True)
     telefono = models.CharField(max_length=13, blank=True)
@@ -18,20 +29,17 @@ class Estudiante(models.Model):
     email = models.CharField(max_length=50, blank=True, primary_key=True)
     apellidoPaterno = models.CharField(max_length=30, blank=True)
     apellidoMaterno = models.CharField(max_length=30, blank=True)
-    fechaNacimiento = models.DateField(default='2000-01-01')
-        
+    fechaNacimiento = models.DateField(default='2000-01-01')       
     sexos = [
         
         ('M', 'Masculino'), 
         ('F', 'Femenino')   
           
-            ]
-    
-    sexo = models.CharField(max_length = 1, choices=sexos, default='F')
-    
+            ]  
+    sexo = models.CharField(max_length = 1, choices=sexos, default='F')   
     carrera = models.ForeignKey(Carrera, null = False, blank = True, on_delete=models.CASCADE)
-    
     vigencia = models.BooleanField(default=True)
+    user_publicaciones = models.ForeignKey(publicaciones, null = True, blank = True, on_delete=models.CASCADE)
     
     def nombreCompleto(self):
         txt = "{0} {1} {2}"
@@ -61,6 +69,3 @@ class Matricula(models.Model):
     materia = models.ForeignKey(Materia, null = False, blank = False, on_delete = models.CASCADE)
     fechaMatricula = models.DateTimeField(auto_now_add = True) 
     
-class Imagen(models.Model):
-    nombre = models.CharField(max_length=100)
-    imagen = models.ImageField(upload_to='imagenes/')

@@ -25,10 +25,6 @@ def createNew(request):
 
 from .models import Imagen
 
-def lista_imagenes(request):
-    imagenes = Imagen.objects.all()
-    return render(request, 'lista_imagenes.html', {'imagenes': imagenes})
-
 # Create your views here.
 
 
@@ -48,7 +44,7 @@ def logIn(request):
         if myuser is not None:
             login(request,myuser)
             
-            estudiante = Estudiante.objects.get(pk=email)
+            estudiante = Estudiante.objects.get(username=email)
             return render(request,"menu.html", {'theusername':myuser.first_name,'est': estudiante})
             
         else:
@@ -110,10 +106,12 @@ def signUp(request):
 def menuDefaultPage(request):
     context = {}
     if request.user.is_authenticated:
+        imagenes = Imagen.objects.all()
         email = request.user.email
         estudiante = Estudiante.objects.get(pk=email)
         context['est'] = estudiante
-        return render(request, "menu.html", context) 
+        context['imagenes'] = imagenes
+        return render(request, "menu.html", context)
     return render(request, "menu.html")
 
 def ugmaPage(request):
