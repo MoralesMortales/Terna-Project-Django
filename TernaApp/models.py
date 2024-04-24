@@ -18,7 +18,6 @@ class publicaciones(models.Model):
     
 class Imagen(models.Model):
     nombre = models.CharField(max_length=100)
-    publicaciones = models.ForeignKey('publicaciones', related_name='imagenes', on_delete=models.CASCADE)
     imagen = models.ImageField(upload_to='imagenes/')
 
     def save(self, *args, **kwargs):

@@ -2,6 +2,7 @@ from django.shortcuts import get_object_or_404, redirect, render #type:ignore
 from django.views.generic import TemplateView #type:ignore
 from django.conf import settings #type:ignore
 from .forms import CarreraForm, ImagenForm #type:ignore
+from .models import Imagen
 from django.contrib.auth.models import Group #type:ignore
 from .models import Carrera, Estudiante, publicaciones, Imagen #type:ignore
 from django.contrib.auth.models import User #type:ignore
@@ -30,7 +31,6 @@ def createNew(request):
         form = ImagenForm()
     return render(request, 'createNew.html', {'form': form})
 
-from .models import Imagen
 
 # Create your views here.
 
