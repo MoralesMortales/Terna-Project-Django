@@ -67,6 +67,9 @@ def logOut(request):
     return render(request,"signout.html")
 
 def signUp(request):
+    
+    """ estudiante = Estudiante.objects.first() """
+    
     if request.method == "POST":
         form = CarreraForm(request.POST)
         if form.is_valid():
@@ -81,36 +84,28 @@ def signUp(request):
         fnaci = request.POST['fnaci']
         tlfn = request.POST['tlfn']
         sexo = request.POST['sexo']
-        carrera_id = request.POST.get('carrera')  # Use carrera_id instead of carrera_views
-        carrera_views = get_object_or_404(Carrera, pk=carrera_id)
+        carrera_views= request.POST.get('carrera')
+        carrera_views = get_object_or_404(Carrera, pk=carrera_views)
         
-        # Create a new User instance
-        myuser = User.objects.create_user(username=theemail, email=theemail, password=password)
+        myuser = User.objects.create_user(first_name = the_user_name, email =  theemail, last_name = pname, username = theemail, password = password)
         
-        # Create an associated Estudiante instance and set user_id
-        estudiante = Estudiante.objects.create(
-            nombre=the_user_name, 
-            apellidoPaterno=pname, 
-            email=theemail, 
-            sexo=sexo, 
-            apellidoMaterno=mname, 
-            cedula=cedula,
-            fechaNacimiento=fnaci, 
-            telefono=tlfn, 
-            carrera=carrera_views,
-            user=myuser
-        )
-        #user is important
+        estudiante.user = myuser 
+        estudiante = Estudiante.objects.create(nombre=the_user_name, apellidoPaterno = pname ,email =  theemail, sexo = sexo, apellidoMaterno = mname, cedula=cedula,fechaNacimiento=fnaci, telefono=tlfn, carrera=carrera_views)
+        
+        myuser.save() 
         
         messages.success(request, "Congrats, you have signed up")
+        
         return redirect("Login")
+        
     else:
         form = CarreraForm()
         messages.error(request, 'Something went wrong')
-    
+        
     carreras = Carrera.objects.all()
     
-    return render(request, 'signup.html', {'form': form, 'carreras': carreras})
+    return render(request, 'signup.html', {'form': form, 'carreras': carreras, 'estudiante': Estudiante})
+
 def menuDefaultPage(request):
     context = {}
     if request.user.is_authenticated:
