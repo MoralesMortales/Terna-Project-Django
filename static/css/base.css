@@ -11,6 +11,55 @@ body{
     background-color: rgb(217, 226, 224);
 }
 
+.option_signup{
+  width: 100%;
+  background-color: rgb(255, 255, 255);
+  border: #141413 2px solid;
+  border-radius: 7px;
+  -webkit-border-radius: 7px;
+  -moz-border-radius: 7px;
+  -ms-border-radius: 7px;
+  -o-border-radius: 7px;
+}
+
+.info_c_box{
+  height: 100%;
+  padding: 2em;
+  display: flex;
+  flex-direction: column;
+  justify-items: center;
+  align-items: center;
+  gap: .5em;
+}
+
+.input_login_up{
+  color:#141413;
+  padding: 0 .11em;
+  width: 100%;
+  border: black solid 2px;
+  background-color: azure;
+  border-radius: 10px;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  -ms-border-radius: 10px;
+  -o-border-radius: 10px;
+}
+
 #content_menu {
   background: linear-gradient(to bottom, #ffAE00, #f9e866);
+}
+
+.boxh:hover{
+   background-color: rgb(255, 153, 0);
+   padding: 10px;
+   transition: all;
+   -webkit-transition: all;
+   -moz-transition: all;
+   -ms-transition: all;
+   -o-transition: all;
+   border-radius: 1rem;
+   -webkit-border-radius: 1rem;
+   -moz-border-radius: 1rem;
+   -ms-border-radius: 1rem;
+   -o-border-radius: 1rem;
 }

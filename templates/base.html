@@ -35,16 +35,17 @@
 				<div class="w-1/4 h-full">
 					<a href="{% url 'menuDefault' %}" class="h-full flex w-3/4 justify-around items-center ">
 						<img src="{% static "img/png-transparent-atlantic-university-columbia-university-ugma-facultad-de-derecho-student-student-angle-people-university-removebg-preview.png" %}" alt="" class="h-full">
+						
 						<h3>UGMA</h3>
 					</a>
 				</div>
 
 				<ul class="flex gap-5 w-2/4 justify-around items-center flex-row">
-					<a href="{% url "UgmaPage" %}">
+					<a href="{% url "UgmaPage" %}" class="boxh">
 						<li>Historia</li>
-					</a><a href="">
+					</a><a href="" class="boxh">
 						<li>Contactanos</li>
-					</a><a href="{% url "Create" %}">
+					</a><a href="{% url "Create" %}" class="boxh">
 						<li>Sedes</li>
 					</a>
 				</ul>
@@ -104,15 +105,15 @@
 
 	</div>
 
-	<div class="">
-<!-- recuerda colocar mt 20 a todos los containers -->
+	<div class=""><!-- recuerda colocar mt 20 a todos los containers -->
+
 		{% block content %}
 
 		{% endblock content %}
 
 	</div>
 
-<div id="footer" class="bottom-0 mt-5">
+<div id="footer" class="relative bottom-0 mt-5 left-0 right-0">
 	<footer id="footer" class="py-12 bg-gray-700 ">
 		<div class="flex mx-10 text-fuchsia-30 flex-col lg:flex-row lg:justify-between justify-center items-center text-white">
 			<h4 class="w-full self-center text-center">Copyright -  All rights reserved</h4>

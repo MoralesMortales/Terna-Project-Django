@@ -7,7 +7,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{% static "css/base.css" %}"> 
+    <link rel="stylesheet" type="text/css" href="{% static 'css/base.css' %}">
     <script src="https://cdn.tailwindcss.com"></script>
     <title>login</title>
 </head>
@@ -15,113 +15,103 @@
 <body class="bg-slate-400">
 
     {% block content %}
-    <div id="container" class="mt-20">
-        <div id="container_box" class="flex justify-center">
+    <div id="container" class="">
+        <div id="container_box" class="h-screen flex flex-col justify-evenly items-center">
 
-            <div id="box" class="flex justify-center flex-col items-center w-3/4 ">
+            <div id="box" class="bg-amber-200 w-5/6 rounded-lg mt-5">
 
                 <div id="title"
-                    class="flex justify-center items-center bg-green-500 border-black border-4 border-b-0 rounded-tr-md rounded-tl-md h-32 w-3/4">
+                    class="flex justify-center items-center bg-black text-white lg:h-10 border-b-0 rounded-tr-md rounded-tl-md w-full">
                     <h1>Sign up</h1>
                 </div>
 
-                <form method="post" action="/signup"
-                    class="mx-auto grid grid-cols-2  place-items-center gap-y-8 bg-slate-100  w-3/4 py-8 rounded-br-md rounded-bl-md border-black border-t-0 border-4">
+                <form method="post" action="/signup" class="grid grid-cols-3 place-items-center justify-self-center place-content-center justify-items-center">
                     {% csrf_token %}
 
-                    <div id="userspace" class="rounded-md p-3 w-3/4 text-white bg-neutral-700 flex justify-between">
+                    <div id="userspace" class="info_c_box">
                         
                         <label for="">Nombre</label>
-                        <input type="text" name="the_user_name" id="theusernameid"
-                        class=" text-zinc-950 w-1/2 rounded-md bg-slate-200  border-zinc-700 border-2">
+                        <input type="text" name="the_user_name" id="theusernameid" class="input_login_up">
                     
                     </div>
                     
-                    <div id="userspace" class="rounded-md p-3 w-3/4 text-white bg-neutral-700 flex justify-around">
+                    <div id="userspace" class="info_c_box">
                         <label for="">Apellido Paterno</label>
-                        <input type="text" name="father_lastname" id="thefatherlastnameid"
-                            class=" text-zinc-950 w-1/2 rounded-md bg-slate-200  border-zinc-700 border-2">
+                        <input type="text" name="father_lastname" id="thefatherlastnameid" class="input_login_up">
                     </div>
                   
-                    <div id="userspace" class="rounded-md p-3 w-3/4 text-white bg-neutral-700 flex justify-around">
+                    <div id="userspace" class="info_c_box">
                         <label for="">Apellido Materno</label>
                         <input type="text" name="mother_lastname" id="themotherlastnameid"
-                            class=" text-zinc-950 w-1/2 rounded-md bg-slate-200  border-zinc-700 border-2">
+                            class=" input_login_up">
                     </div>
 
-                    <div id="cedula" class="rounded-md p-3 w-3/4 text-white bg-neutral-700 flex justify-between">
+                    <div id="cedula" class="info_c_box">
                         <label for="">Cedula</label>
-                        <input type="number" name="the_cedula" id="thecedulaid"
-                            class=" text-zinc-950 w-1/2 rounded-md bg-slate-200  border-zinc-700 border-2">
+                        <input type="number" name="the_cedula" id="thecedulaid" class=" input_login_up">
                     </div>
 
-                    <div id="fnaci" class="rounded-md p-3 w-3/4 text-white bg-neutral-700 flex justify-between">
+                    <div id="fnaci" class="info_c_box">
                         <label for="">Fecha de Nacimiento</label>
-                        <input type="date" name="fnaci" id="thefnaciid"
-                            class=" text-zinc-950 w-1/2 rounded-md bg-slate-200  border-zinc-700 border-2">
+                        <input type="date" name="fnaci" id="thefnaciid" class=" input_login_up">
                     </div>
 
-                    <div id="sexo" class="rounded-md p-3 w-3/4 text-white bg-neutral-700 flex justify-between">
+                    <div id="sexo" class="info_c_box">
                         <label for="">Sexo</label>
-
-                        <select name="sexo" id="sexid" class="text-black w-1/2">
+                        
+                        <select name="sexo" id="sexid" class= "option_signup">
                             
                             {% for sexo, value in estudiante.sexos %}
                                 <option value="{{ sexo }}" class="">{{ value }}</option>
                             {% endfor %}
 
                         </select>
-
                     </div>
                 
-                    <div id="email" class="rounded-md p-3 w-3/4 text-white bg-neutral-700 flex justify-between">
+                    <div id="email" class="info_c_box">
                         <label for="">Correo Electronico</label>
-                        <input type="email" name="email" id="self-email"
-                            class=" text-zinc-950 w-1/2 rounded-md bg-slate-200  border-zinc-700 border-2">
+                        <input type="email" name="email" id="self-email" class=" input_login_up">
                     </div>
+
 {% comment %} colocar por gmail autenticator {% endcomment %}
 
-                    <div id="password" class="rounded-md p-3 w-3/4 text-white bg-neutral-700 flex justify-between">
+                    <div id="password" class="info_c_box">
                         <label for="">Contrasena</label>
-                        <input type="password" name="thepassword" id="thepasswordid"
-                            class=" text-zinc-950 w-1/2 rounded-md bg-slate-200  border-zinc-700 border-2">
+                        <input type="password" name="thepassword" id="thepasswordid" class=" input_login_up">
                     </div>
 
-                    <div id="password_conf" class="rounded-md p-3 w-3/4 text-white bg-neutral-700 flex justify-between">
+                    <div id="password_conf" class="info_c_box">
                         <label for="">Confirmar Contrasena</label>
-                        <input type="password" name="password_conf" id="thepasswordconfid"
-                            class=" text-zinc-950 w-1/2 rounded-md bg-slate-200  border-zinc-700 border-2">
+                        <input type="password" name="password_conf" id="thepasswordconfid" class=" input_login_up">
                     </div>
 
-                    <div id="tlfn" class="rounded-md p-3 w-3/4 text-white bg-neutral-700 flex justify-around">
+                    <div id="tlfn" class="info_c_box">
                         <label for="">Numero de Telefono</label>
-                        <input type="text" name="tlfn" id="thetlfnid"
-                            class=" text-zinc-950 w-1/2 rounded-md bg-slate-200  border-zinc-700 border-2">
+                        <input type="text" name="tlfn" id="thetlfnid" class=" input_login_up">
                     </div>
 
-                    <div 
-                    id="carrera_select"
-                    class="rounded-md p-3 text-white bg-neutral-700 flex flex-col justify-around w-2/3 col-span-2">
+                    <div id="carrera_select" class="info_c_box">
                         
                         <label for="id_carrera">Selecciona una carrera:</label>
                        
-                        <select name="carrera" id="id_carrera" class="text-black">
+                        <select name="carrera" id="id_carrera" class="option_signup">
                             {% for carrera in carreras %}
-                            <option value="{{ carrera.pk }}">{{ carrera.nombre }}</option>
+                            <option value="{{ carrera.pk }}" class="">{{ carrera.nombre }}</option>
                             {% endfor %}
                         </select>
 
                     </div>
 
-                    <button type="submit"
-                        class="hover:bg-slate-400 hover:transition bg-red-300 px-8 py-6 rounded-xl col-span-2">Enviar
-                        solicitud</button>
+                    <button type="submit" class="hover:bg-slate-400 hover:transition bg-red-300 px-8 py-6 rounded-xl"> Enviar solicitud</button>
 
-                    <a class="text-black hover:text-yellow-600 col-span-2" href="{% url 'Login' %}">
-                        <h2>Already have an account? Log in here!</h2>
-                    </a>
+                    
+
                 </form>
+                
             </div>
+            <a class="text-black hover:text-yellow-600" href="{% url 'Login' %}">
+                        <h2>Already have an account? Log in here!</h2>
+                </a>
         </div>
 
         {% endblock content %}

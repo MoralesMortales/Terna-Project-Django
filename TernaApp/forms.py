@@ -16,11 +16,11 @@ class EstudianteForm(forms.ModelForm):
             'sexo': forms.Select(choices=Estudiante.sexos),
         }
         
-        """ def clean_username(self):
+        def clean_username(self):
             username = self.cleaned_data.get('username')
             if User.objects.filter(username=username).exists():
                 raise forms.ValidationError("Este nombre de usuario ya está en uso. Por favor, elija otro.")
-            return username """
+            return username
             
 class ImagenForm(forms.ModelForm):
     class Meta:
