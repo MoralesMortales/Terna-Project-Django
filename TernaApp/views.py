@@ -100,6 +100,7 @@ def signUp(request):
             carrera=carrera_views,
             user=myuser
         )
+        #user is important
         
         messages.success(request, "Congrats, you have signed up")
         return redirect("Login")
