@@ -2,43 +2,35 @@
 
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="{% static "css/base.css" %}">
-    <script src="https://cdn.tailwindcss.com"></script>
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<link rel="stylesheet" href="{% static "css/base.css" %}">
+		<script src="https://cdn.tailwindcss.com"></script>
 
-    <title>Document</title>
-  </head>
-  <body>
-    {% block content %}
+		<title>Document</title>
+	</head>
+	<body>
+		{% block content %}
 
-    <div
-      id="content_menu"
-      class="flex flex-col justify-center h-screen items-center pt-20">
-      {% if request.user.is_authenticated %}
+		<div
+				id="content_menu"
+				class="flex flex-col justify-center items-center pt-20">
+			{% if request.user.is_authenticated %}
 
-      <h1 class="m-auto py-8">welcome {{ est.nombre }}</h1>
+			<h1 class="m-auto py-8">welcome {{ est.nombre }}</h1>
 
-      <div
-        id="box"
-        class="bg-slate-200 rounded-3xl w-2/3 flex justify-center items-center flex-col mb-14 p-6">
-        <div class="h-28 p-6 rounded-lg bg-blue-50">
-          {% for imagen in imagenes %}
-          <img
-            src="{{ imagen.imagen.url }}"
-            class="h-full mb-2"
-            alt="{{ imagen.nombre }}" />
-          a {% endfor %}
-        </div>
-      </div>
+			<div
+					id="box"
+					class="bg-slate-200 rounded-3xl w-2/3 flex justify-center items-center flex-col mb-14 p-6">
+				<div class="h-28 p-6 rounded-lg bg-blue-50">
+				</div>
+			</div>
+			<h1 class="m-auto">welcome to the menu</h1>
 
-      {% else %}
-      <h1 class="m-auto">welcome to the menu</h1>
+			{% endif %}
+		</div>
 
-      {% endif %}
-    </div>
-
-    {% endblock content %}
-  </body>
+		{% endblock content %}
+	</body>
 </html>

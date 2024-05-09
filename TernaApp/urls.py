@@ -10,4 +10,4 @@ urlpatterns = [
    path("signup", signUp, name="Signup"),
    path("createNew", createNew, name="Create"),
    path("Ugma", ugmaPage, name="UgmaPage"),
-] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+] 

@@ -18,14 +18,14 @@
     <div id="container" class="">
         <div id="container_box" class="h-screen flex flex-col justify-evenly items-center">
 
-            <div id="box" class="bg-amber-200 w-5/6 rounded-lg mt-5">
+            <div id="box" class="bg-amber-200 w-5/6 rounded-lg mt-5 h-2/3">
 
                 <div id="title"
                     class="flex justify-center items-center bg-black text-white lg:h-10 border-b-0 rounded-tr-md rounded-tl-md w-full">
                     <h1>Sign up</h1>
                 </div>
 
-                <form method="post" action="/signup" class="grid grid-cols-3 place-items-center justify-self-center place-content-center justify-items-center">
+                <form method="post" action="/signup" class="grid grid-cols-4 place-items-center justify-self-center place-content-center justify-items-center">
                     {% csrf_token %}
 
                     <div id="userspace" class="info_c_box">

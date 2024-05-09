@@ -1,7 +1,7 @@
 
 from django.contrib.auth.models import User
 from django import forms
-from .models import Carrera, Estudiante, Imagen, publicaciones
+from .models import Carrera, Estudiante
 
 class CarreraForm(forms.ModelForm):
     class Meta:
@@ -21,8 +21,3 @@ class EstudianteForm(forms.ModelForm):
             if User.objects.filter(username=username).exists():
                 raise forms.ValidationError("Este nombre de usuario ya está en uso. Por favor, elija otro.")
             return username
-            
-class ImagenForm(forms.ModelForm):
-    class Meta:
-        model = publicaciones
-        fields = ['nombre', 'description', 'imagen']

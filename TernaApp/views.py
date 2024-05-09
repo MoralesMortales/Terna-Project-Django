@@ -1,10 +1,9 @@
 from django.shortcuts import get_object_or_404, redirect, render #type:ignore
 from django.views.generic import TemplateView #type:ignore
 from django.conf import settings #type:ignore
-from .forms import CarreraForm, ImagenForm #type:ignore
-from .models import Imagen
+from .forms import CarreraForm #type:ignore
 from django.contrib.auth.models import Group #type:ignore
-from .models import Carrera, Estudiante, publicaciones, Imagen #type:ignore
+from .models import Carrera, Estudiante #type:ignore
 from django.contrib.auth.models import User #type:ignore
 from django.contrib import messages #type:ignore
 from django.contrib.auth import logout, login, authenticate  #type:ignore
@@ -68,8 +67,6 @@ def logOut(request):
 
 def signUp(request):
     
-    """ estudiante = Estudiante.objects.first() """
-    
     if request.method == "POST":
         form = CarreraForm(request.POST)
         if form.is_valid():
@@ -89,8 +86,9 @@ def signUp(request):
         
         myuser = User.objects.create_user(first_name = the_user_name, email =  theemail, last_name = pname, username = theemail, password = password)
         
-        estudiante.user = myuser 
         estudiante = Estudiante.objects.create(nombre=the_user_name, apellidoPaterno = pname ,email =  theemail, sexo = sexo, apellidoMaterno = mname, cedula=cedula,fechaNacimiento=fnaci, telefono=tlfn, carrera=carrera_views)
+        
+        estudiante.user = myuser 
         
         myuser.save() 
         
