@@ -12,28 +12,6 @@ class Carrera(models.Model):
         txt = "{0}"
         return txt.format(self.nombre)
 
-
-class publicaciones(models.Model):
-    nombre = models.CharField(max_length=100)
-    description = models.TextField(max_length=1200)
-    imagen = models.ImageField(upload_to='imagenes/')
-
-
-class Imagen(models.Model):
-    nombre = models.CharField(max_length=100)
-    imagen = models.ImageField(upload_to='imagenes/')
-
-    def save(self, *args, **kwargs):
-        # Si la instancia de Imagen aún no tiene un ID asignado, es una nueva instancia
-        if not self.pk:
-            # Guarda la instancia para obtener un ID asignado
-            super().save(*args, **kwargs)
-            # Asigna el ID recién asignado a publicaciones_id
-            self.publicaciones_id = self.pk
-        # Guarda la instancia nuevamente con el publicaciones_id asignado
-        super().save(*args, **kwargs)
-
-
 class Estudiante(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, default=None)
     cedula = models.CharField(max_length=8, unique=True)
