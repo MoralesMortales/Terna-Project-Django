@@ -18,7 +18,7 @@
 
                 <div id="title"
                     class="flex justify-center items-center bg-black text-white lg:h-10 border-b-0 rounded-tr-md rounded-tl-md w-full">
-                    <h1>Sign up</h1>
+                    <h1>Crear Secretario</h1>
                 </div>
 
                 <form method="post" action="/signup" class="grid grid-cols-3 place-items-center justify-self-center place-content-center justify-items-center">
@@ -32,24 +32,13 @@
                     </div>
                     
                     <div id="userspace" class="info_c_box">
-                        <label for="">Apellido Paterno</label>
+                        <label for="">Apellido</label>
                         <input type="text" name="father_lastname" id="thefatherlastnameid" class="input_login_up">
                     </div>
                   
-                    <div id="userspace" class="info_c_box">
-                        <label for="">Apellido Materno</label>
-                        <input type="text" name="mother_lastname" id="themotherlastnameid"
-                            class=" input_login_up">
-                    </div>
-
                     <div id="cedula" class="info_c_box">
                         <label for="">Cedula</label>
                         <input type="number" name="the_cedula" id="thecedulaid" class=" input_login_up">
-                    </div>
-
-                    <div id="fnaci" class="info_c_box">
-                        <label for="">Fecha de Nacimiento</label>
-                        <input type="date" name="fnaci" id="thefnaciid" class=" input_login_up">
                     </div>
 
                     <div id="sexo" class="info_c_box">
@@ -84,18 +73,6 @@
                     <div id="tlfn" class="info_c_box">
                         <label for="">Numero de Telefono</label>
                         <input type="text" name="tlfn" id="thetlfnid" class=" input_login_up">
-                    </div>
-
-                    <div id="carrera_select" class="info_c_box">
-                        
-                        <label for="id_carrera">Selecciona una carrera:</label>
-                       
-                        <select name="carrera" id="id_carrera" class="option_signup">
-                            {% for carrera in carreras %}
-                            <option value="{{ carrera.pk }}" class="">{{ carrera.nombre }}</option>
-                            {% endfor %}
-                        </select>
-
                     </div>
 
                     <button type="submit" class="hover:bg-slate-400 hover:transition bg-red-300 px-8 py-6 rounded-xl"> Enviar solicitud</button>

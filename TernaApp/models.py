@@ -51,6 +51,7 @@ class Estudiante(models.Model):
 class Secretario(models.Model):
     cedula = models.CharField(max_length=8, unique=True)
     telefono = models.CharField(max_length=13, blank=True)
+    apellido = models.CharField(max_length=30)
     nombre = models.CharField(max_length=30)
     email = models.CharField(max_length=50, blank=True, primary_key=True)
     apellidoPaterno = models.CharField(max_length=30, blank=True)

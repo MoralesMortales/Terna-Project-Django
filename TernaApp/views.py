@@ -3,7 +3,7 @@ from django.views.generic import TemplateView #type:ignore
 from django.conf import settings #type:ignore
 from .forms import CarreraForm, EstudianteForm #type:ignore
 from django.contrib.auth.models import Group #type:ignore
-from .models import Carrera, Estudiante #type:ignore
+from .models import Carrera, Estudiante, Secretario #type:ignore
 from django.contrib.auth.models import User #type:ignore
 from django.contrib import messages #type:ignore
 from django.contrib.auth import logout, login, authenticate  #type:ignore
@@ -86,7 +86,7 @@ def signup_S(request):
         myuser = User.objects.create_user(username=theemail, email=theemail, password=password)
 
         # Create an associated Estudiante instance and set user_id
-        estudiante = Estudiante.objects.create(
+        secretario = Secretario.objects.create(
                 nombre=the_user_name, 
                 apellidoPaterno=pname, 
                 email=theemail, 
