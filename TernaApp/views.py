@@ -69,9 +69,8 @@ def signup_S(request):
         form = EstudianteForm(request.POST)
         if form.is_valid():
             form.save()
-        the_user_name = request.POST['the_user_name']
-        pname = request.POST['father_lastname']
-        mname = request.POST['mother_lastname']
+        the_user_name = request.POST['nombre']
+        lastname = request.POST['apellido']
         theemail = request.POST['email']
         password = request.POST['thepassword']
         password_conf = request.POST['password_conf']
@@ -79,8 +78,6 @@ def signup_S(request):
         fnaci = request.POST['fnaci']
         tlfn = request.POST['tlfn']
         sexo = request.POST['sexo']
-        carrera_id = request.POST.get('carrera')  # Use carrera_id instead of carrera_views
-        carrera_views = get_object_or_404(Carrera, pk=carrera_id)
 
         # Create a new User instance
         myuser = User.objects.create_user(username=theemail, email=theemail, password=password)
@@ -95,20 +92,17 @@ def signup_S(request):
                 cedula=cedula,
                 fechaNacimiento=fnaci, 
                 telefono=tlfn, 
-                carrera=carrera_views,
                 user=myuser
                 )
 
         messages.success(request, "Congrats, you have signed up")
         return redirect("Login")
     else:
-        form = CarreraForm()
         messages.error(request, 'Something went wrong')
 
-    carreras = Carrera.objects.all()
-    form = EstudianteForm()
+    """form = EstudianteForm()"""
 
-    return render(request, 'signup_S.html', {'form': form})
+    return render(request, 'signup_S.html')
 
 
 def signUp(request):
