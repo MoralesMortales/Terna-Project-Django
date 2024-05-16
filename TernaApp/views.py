@@ -1,7 +1,7 @@
 from django.shortcuts import get_object_or_404, redirect, render #type:ignore
 from django.views.generic import TemplateView #type:ignore
 from django.conf import settings #type:ignore
-from .forms import CarreraForm, EstudianteForm #type:ignore
+from .forms import CarreraForm, EstudianteForm, SecretarioForm #type:ignore
 from django.contrib.auth.models import Group #type:ignore
 from .models import Carrera, Estudiante, Secretario #type:ignore
 from django.contrib.auth.models import User #type:ignore
@@ -66,18 +66,18 @@ def logOut(request):
 
 def signup_S(request):
     if request.method == "POST":
-        form = EstudianteForm(request.POST)
+        form = SecretarioForm(request.POST)
         if form.is_valid():
             form.save()
-        the_user_name = request.POST['nombre']
-        lastname = request.POST['apellido']
-        theemail = request.POST['email']
-        password = request.POST['thepassword']
-        password_conf = request.POST['password_conf']
-        cedula = request.POST['the_cedula']
-        fnaci = request.POST['fnaci']
-        tlfn = request.POST['tlfn']
-        sexo = request.POST['sexo']
+        the_user_name = request.POST.get('nombre', '')
+        lastname = request.POST.get('apellido', '')
+        theemail = request.POST.get('email', '')
+        password = request.POST.get('thepassword', '')
+        password_conf = request.POST.get('password_conf', '')
+        cedula = request.POST.get('the_cedula', '')
+        fnaci = request.POST.get('fnaci', '')
+        tlfn = request.POST.get('tlfn', '')
+        sexo = request.POST.get('sexo', '')
 
         # Create a new User instance
         myuser = User.objects.create_user(username=theemail, email=theemail, password=password)
@@ -85,10 +85,9 @@ def signup_S(request):
         # Create an associated Estudiante instance and set user_id
         secretario = Secretario.objects.create(
                 nombre=the_user_name, 
-                apellidoPaterno=pname, 
+                apellido=lastname, 
                 email=theemail, 
                 sexo=sexo, 
-                apellidoMaterno=mname, 
                 cedula=cedula,
                 fechaNacimiento=fnaci, 
                 telefono=tlfn, 
@@ -101,8 +100,9 @@ def signup_S(request):
         messages.error(request, 'Something went wrong')
 
     """form = EstudianteForm()"""
+    form = SecretarioForm()
 
-    return render(request, 'signup_S.html')
+    return render(request, 'signup_S.html', {'form':form})
 
 
 def signUp(request):

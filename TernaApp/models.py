@@ -49,13 +49,12 @@ class Estudiante(models.Model):
 
 
 class Secretario(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE, default=None)
     cedula = models.CharField(max_length=8, unique=True)
     telefono = models.CharField(max_length=13, blank=True)
-    apellido = models.CharField(max_length=30)
-    nombre = models.CharField(max_length=30)
+    apellido = models.CharField(max_length=30, blank=True)
+    nombre = models.CharField(max_length=30, blank=True)
     email = models.CharField(max_length=50, blank=True, primary_key=True)
-    apellidoPaterno = models.CharField(max_length=30, blank=True)
-    apellidoMaterno = models.CharField(max_length=30, blank=True)
     fechaNacimiento = models.DateField(default='2000-01-01')
     sexos = [
 
@@ -66,8 +65,8 @@ class Secretario(models.Model):
     sexo = models.CharField(max_length=1, choices=sexos, default='F')
 
     def nombreCompleto(self):
-        txt = "{0} {1} {2}"
-        return txt.format(self.nombre, self.apellidoPaterno, self.apellidoMaterno)
+        txt = "{0} {1}"
+        return txt.format(self.nombre, self.apellido)
 
     def __str__(self):
 
