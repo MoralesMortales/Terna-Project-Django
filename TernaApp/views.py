@@ -12,7 +12,6 @@ from django.core.mail import send_mail #type:ignore
 def UgmaSite(request):
     return render(request, "ugmaPage.html")
 
-
 def createNew(request):
     if request.method == 'POST':
         form = ImagenForm(request.POST, request.FILES)
@@ -49,8 +48,13 @@ def logIn(request):
         if myuser is not None:
             login(request,myuser)
 
-            estudiante = Estudiante.objects.get(email=email)
-            return render(request,"menu.html", {'theusername':myuser.first_name,'est': estudiante})
+            if Estudiante.objects.get(email=email) is True:
+                estudiante = Estudiante.objects.get(email=email)
+                return render(request,"menu.html", {'theusername':myuser.first_name,'est': estudiante})
+
+            elif Secretario.objects.get(email=email) is True:
+                secretario = Secretario.objects.get(email=email)
+                return render(request,"menu_secretario.html", {'theusername':myuser.first_name,'theuser': secretario})
 
         else:
             messages.error(request, 'Wrong username or password')
