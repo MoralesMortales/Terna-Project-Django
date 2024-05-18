@@ -121,7 +121,7 @@ def signup_S(request):
 def signUp(request):
     if request.method == "POST":
         form = EstudianteForm(request.POST)
-        if form.is_valid():
+        if form.is_valid() and request.POST['thepassword'] == request.POST['password_conf']:
             form.save()
         the_user_name = request.POST['the_user_name']
         pname = request.POST['father_lastname']
