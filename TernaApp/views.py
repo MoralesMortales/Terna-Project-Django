@@ -82,33 +82,33 @@ def signup_S(request):
         form = SecretarioForm(request.POST)
         if form.is_valid():
             form.save()
-        the_user_name = request.POST.get('nombre', '')
-        lastname = request.POST.get('apellido', '')
-        theemail = request.POST.get('email', '')
-        password = request.POST.get('thepassword', '')
-        password_conf = request.POST.get('password_conf', '')
-        cedula = request.POST.get('the_cedula', '')
-        fnaci = request.POST.get('fnaci', '')
-        tlfn = request.POST.get('tlfn', '')
-        sexo = request.POST.get('sexo', '')
+            the_user_name = request.POST.get('nombre', '')
+            lastname = request.POST.get('apellido', '')
+            theemail = request.POST.get('email', '')
+            password = request.POST.get('thepassword', '')
+            password_conf = request.POST.get('password_conf', '')
+            cedula = request.POST.get('the_cedula', '')
+            fnaci = request.POST.get('fnaci', '')
+            tlfn = request.POST.get('tlfn', '')
+            sexo = request.POST.get('sexo', '')
 
         # Create a new User instance
-        myuser = User.objects.create_user(username=theemail, email=theemail, password=password)
+            myuser = User.objects.create_user(username=theemail, email=theemail, password=password)
 
-        # Create an associated Estudiante instance and set user_id
-        secretario = Secretario.objects.create(
-                nombre=the_user_name, 
-                apellido=lastname, 
-                email=theemail, 
-                sexo=sexo, 
-                cedula=cedula,
-                fechaNacimiento=fnaci, 
-                telefono=tlfn, 
-                user=myuser
-                )
+            # Create an associated Estudiante instance and set user_id
+            secretario = Secretario.objects.create(
+                    nombre=the_user_name, 
+                    apellido=lastname, 
+                    email=theemail, 
+                    sexo=sexo, 
+                    cedula=cedula,
+                    fechaNacimiento=fnaci, 
+                    telefono=tlfn, 
+                    user=myuser
+                    )
 
-        messages.success(request, "Congrats, you have signed up")
-        return redirect("Login")
+            messages.success(request, "Congrats, you have signed up")
+            return redirect("Login")
     else:
         messages.error(request, 'Something went wrong')
 
