@@ -43,25 +43,34 @@ def logIn(request):
         email = request.POST['theemail']
         password = request.POST['password']
 
-        myuser = authenticate(request, username = email, password = password)
+        myuser = authenticate(request, username=email, password=password)
 
         if myuser is not None:
-            login(request,myuser)
+            login(request, myuser)
 
-            if Estudiante.objects.get(email=email) is True:
+            # Check if the user is an Estudiante
+            try:
                 estudiante = Estudiante.objects.get(email=email)
-                return render(request,"menu.html", {'theusername':myuser.first_name,'est': estudiante})
+                return render(request, "menu.html", {'theusername': myuser.first_name, 'est': estudiante})
+            except Estudiante.DoesNotExist:
+                pass
 
-            elif Secretario.objects.get(email=email) is True:
+            # Check if the user is a Secretario
+            try:
                 secretario = Secretario.objects.get(email=email)
-                return render(request,"menu_secretario.html", {'theusername':myuser.first_name,'theuser': secretario})
+                return render(request, "menu_secretaria.html", {'theusername': myuser.first_name, 'theuser': secretario})
+            except Secretario.DoesNotExist:
+                pass
+
+            # If neither Estudiante nor Secretario
+            messages.error(request, 'User type not recognized')
+            return render(request, "login.html")
 
         else:
             messages.error(request, 'Wrong username or password')
-            return render(request,"login.html")
+            return render(request, "login.html")
 
-    return render(request,"login.html")
-
+    return render(request, "login.html")
 def logOut(request):
     if request.method=="POST":   
         logout(request)
