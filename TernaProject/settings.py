@@ -15,8 +15,19 @@ SECRET_KEY = 'django-insecure-wz=$pfn**$)-*0*0s^s*#m57f7ii=0_dkff)-@&csl!wip@jio
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1', 'localhost']
+ALLOWED_HOSTS = [
+    'localhost',
+    '127.0.0.1',
+    '8000-idx-terna-project-django-1715986194883.cluster-f4iwdviaqvc2ct6pgytzw4xqy4.cloudworkstations.dev',
+]
 
+CSRF_TRUSTED_ORIGINS = [
+    'https://8000-idx-terna-project-django-1715986194883.cluster-f4iwdviaqvc2ct6pgytzw4xqy4.cloudworkstations.dev',
+]
+
+CORS_ALLOWED_ORIGINS = [
+    'https://8000-idx-terna-project-django-1715986194883.cluster-f4iwdviaqvc2ct6pgytzw4xqy4.cloudworkstations.dev',
+]
 # Application definition
 
 INSTALLED_APPS = [
@@ -78,10 +89,15 @@ WSGI_APPLICATION = 'TernaProject.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'bq1jll2vnno2h3msyzdw',
+        'USER': 'ujypbrgwq4lvqu9fg2aa',
+        'PASSWORD': '0074PGz2n7AL4w6DSCFw5xq5d6NA24',
+        'HOST': 'bq1jll2vnno2h3msyzdw-postgresql.services.clever-cloud.com',  
+        'PORT': '50013',       
     }
 }
+
 
 
 
