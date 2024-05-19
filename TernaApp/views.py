@@ -43,7 +43,7 @@ def logIn(request):
         email = request.POST['theemail']
         password = request.POST['password']
 
-        myuser = authenticate(request, username=email, password=password)
+        myuser = authenticate(request, email=email, password=password)
 
         if myuser is not None:
             login(request, myuser)
@@ -71,6 +71,7 @@ def logIn(request):
             return render(request, "login.html")
 
     return render(request, "login.html")
+
 def logOut(request):
     if request.method=="POST":   
         logout(request)
@@ -80,43 +81,49 @@ def logOut(request):
 def signup_S(request):
     if request.method == "POST":
         form = SecretarioForm(request.POST)
+        
+        password = request.POST.get('thepassword')
+        password_conf = request.POST.get('password_conf')
+
         if form.is_valid():
-            form.save()
-            the_user_name = request.POST.get('nombre', '')
-            lastname = request.POST.get('apellido', '')
-            theemail = request.POST.get('email', '')
-            password = request.POST.get('thepassword', '')
-            password_conf = request.POST.get('password_conf', '')
-            cedula = request.POST.get('the_cedula', '')
-            fnaci = request.POST.get('fnaci', '')
-            tlfn = request.POST.get('tlfn', '')
-            sexo = request.POST.get('sexo', '')
+            if password == password_conf:
+                try:
+                    the_user_name = request.POST.get('nombre')
+                    lastname = request.POST.get('apellido')
+                    theemail = request.POST.get('email')
+                    cedula = request.POST.get('the_cedula')
+                    fnaci = request.POST.get('fnaci')
+                    tlfn = request.POST.get('tlfn')
+                    sexo = request.POST.get('sexo')
+                    
+                    myuser = User.objects.create_user(username=the_user_name, email=theemail, password=password)
 
-        # Create a new User instance
-            myuser = User.objects.create_user(username=theemail, email=theemail, password=password)
-
-            # Create an associated Estudiante instance and set user_id
-            secretario = Secretario.objects.create(
-                    nombre=the_user_name, 
-                    apellido=lastname, 
-                    email=theemail, 
-                    sexo=sexo, 
-                    cedula=cedula,
-                    fechaNacimiento=fnaci, 
-                    telefono=tlfn, 
-                    user=myuser
+                    # Create Secretario instance and associate with user
+                    Secretario.objects.create(
+                        nombre=the_user_name,
+                        apellido=lastname,
+                        email=theemail,
+                        sexo=sexo,
+                        cedula=cedula,
+                        fechaNacimiento=fnaci,
+                        telefono=tlfn,
+                        user=myuser
                     )
 
-            messages.success(request, "Congrats, you have signed up")
-            return redirect("Login")
+                    messages.success(request, "Congrats, you have signed up")
+                    return redirect("login")
+
+                except Exception as e:
+                    messages.error(request, f"An error occurred: {str(e)}")
+            else:
+                messages.error(request, "Passwords do not match")
+        else:
+            messages.error(request, "Form is invalid")
+
     else:
-        messages.error(request, 'Something went wrong')
+        form = SecretarioForm()
 
-    """form = EstudianteForm()"""
-    form = SecretarioForm()
-
-    return render(request, 'signup_S.html', {'form':form})
-
+    return render(request, 'signup_S.html', {'form': form})
 
 def signUp(request):
     if request.method == "POST":
@@ -138,7 +145,7 @@ def signUp(request):
             carrera_views = get_object_or_404(Carrera, pk=carrera_id)
 
             # Create a new User instance
-            myuser = User.objects.create_user(username=theemail, email=theemail, password=password)
+            myuser = User.objects.create_user(username=the_user_name, email=theemail, password=password)
 
             # Create an associated Estudiante instance and set user_id
             estudiante = Estudiante.objects.create(

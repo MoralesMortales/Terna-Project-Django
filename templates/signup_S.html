@@ -9,92 +9,88 @@
     <title>Document</title> 
   </head>
   <body class="bg-slate-400">
-
     {% block content %}
     <div id="container" class="">
-      <div id="container_box" class="h-screen flex flex-col justify-evenly items-center">
+        <div id="container_box" class="h-screen flex flex-col justify-evenly items-center">
 
-        <div id="box" class="bg-amber-700 w-5/6 rounded-lg mt-5">
+            <div id="box" class="bg-amber-700 w-5/6 rounded-lg mt-5">
 
-          <div id="title"
-               class="flex justify-center items-center bg-black text-white lg:h-10 border-b-0 rounded-tr-md rounded-tl-md w-full">
-            <h1>Crear Secretario</h1>
-          </div>
+                <div id="title" class="flex justify-center items-center bg-black text-white lg:h-10 border-b-0 rounded-tr-md rounded-tl-md w-full">
+                    <h1>Crear Secretario</h1>
+                </div>
 
-          <form method="post" action="/signup_S" class="grid grid-cols-3 place-items-center justify-self-center place-content-center justify-items-center">
-            {% csrf_token %}
+                <form method="post" action="{% url 'signup_s' %}" class="grid grid-cols-3 place-items-center justify-self-center place-content-center justify-items-center">
+                  {% csrf_token %}
 
-            <div id="nombre" class="info_c_box">
-
-              <label for="">Nombre</label>
-              <input type="text" name="nombre" id="theusernameid" class="input_login_up">
-
-            </div>
-
-            <div id="apellido" class="info_c_box">
-              <label for="">Apellido Paterno</label>
-              <input type="text" name="apellido" id="thefatherlastnameid" class="input_login_up">
-            </div>
-
-            <div id="cedula" class="info_c_box">
-              <label for="">Cedula</label>
-              <input type="number" name="the_cedula" id="thecedulaid" class=" input_login_up">
-            </div>
-
-            <div id="sexo" class="info_c_box">
-              <label for="">Sexo</label>
-
-              <select name="sexo" id="sexid" class= "option_signup">
-
-                {% for key, value in form.fields.sexo.choices %}
-                <option value="{{ key }}">{{ value }}</option>
-                {% endfor %}
-
-              </select>
-            </div>
-
-            <div id="fnaci" class="info_c_box">
-              <label for="">Fecha de Nacimiento</label>
-              <input type="date" name="fnaci" id="thefnaciid" class=" input_login_up">
-            </div>
-
-            <div id="email" class="info_c_box">
-              <label for="">Correo Electronico</label>
-              <input type="email" name="email" id="self-email" class=" input_login_up">
-            </div>
-
-            {% comment %} colocar por gmail autenticator {% endcomment %}
-
-            <div id="password" class="info_c_box">
-              <label for="">Contrasena</label>
-              <input type="password" name="thepassword" min="8" id="thepasswordid" class=" input_login_up">
-            </div>
-
-            <div id="password_conf" class="info_c_box">
-              <label for="">Confirmar Contrasena</label>
-              <input type="password" name="password_conf" id="thepasswordconfid" min="8" class=" input_login_up">
-            </div>
-
-            <div id="tlfn" class="info_c_box">
-              <label for="">Numero de Telefono</label>
-              <input type="text" name="tlfn" id="thetlfnid" class=" input_login_up">
-            </div>
-
-            <button type="submit" class="hover:bg-slate-400 hover:transition bg-red-300 px-8 py-6 rounded-xl col-span-3 items-center my-8"> Enviar solicitud</button>
-
-          </form>
-
-        </div>
-        <div class="flex flex-row gap-5">
-          <a class="text-black hover:text-yellow-600" href="{% url 'Login' %}">
-            <h2>Already have an account? Log in here!</h2>
-          </a>
-          <a href="{% url 'Signup'  %}">create student </a>
-        </div>
-      </div>
-      {% endblock content %}
-
-  </body>
+                            <div id="nombre" class="info_c_box">
+                
+                              <label for="">Nombre</label>
+                              <input type="text" name="nombre" id="theusernameid" class="input_login_up" required>
+                
+                            </div>
+                
+                            <div id="apellido" class="info_c_box">
+                              <label for="">Apellidos</label>
+                              <input type="text" name="apellido" id="thefatherlastnameid" class="input_login_up" required>
+                            </div>
+                
+                            <div id="cedula" class="info_c_box">
+                              <label for="">Cedula</label>
+                              <input type="number" name="the_cedula" id="thecedulaid" min="1000000" max="999999999"  class=" input_login_up" required >
+                            </div>
+                
+                            <div id="sexo" class="info_c_box">
+                              <label for="">Sexo</label>
+                
+                              <select name="sexo" id="sexid" class= "option_signup" required>
+                
+                                {% for key, value in form.fields.sexo.choices %}
+                                <option value="{{ key }}">{{ value }}</option>
+                                {% endfor %}
+                
+                              </select>
+                            </div>
+                
+                            <div id="fnaci" class="info_c_box" required>
+                              <label for="">Fecha de Nacimiento</label>
+                              <input type="date" name="fnaci" id="thefnaciid" class=" input_login_up">
+                            </div>
+                
+                            <div id="email" class="info_c_box" >
+                              <label for="">Correo Electronico</label>
+                              <input type="email" name="email" id="self-email" class=" input_login_up" required>
+                            </div>
+                
+                            {% comment %} colocar por gmail autenticator {% endcomment %}
+                
+                            <div id="password" class="info_c_box">
+                              <label for="">Contrasena</label>
+                              <input type="password" name="thepassword" min="8" id="thepasswordid" class=" input_login_up">
+                            </div>
+                
+                            <div id="password_conf" class="info_c_box">
+                              <label for="">Confirmar Contrasena</label>
+                              <input type="password" name="password_conf" id="thepasswordconfid" min="8" class=" input_login_up">
+                            </div>
+                
+                            <div id="tlfn" class="info_c_box">
+                              <label for="">Numero de Telefono</label>
+                              <input type="text" name="tlfn" id="thetlfnid" class=" input_login_up">
+                            </div>
+                
+                            <button type="submit" class="hover:bg-slate-400 hover:transition bg-red-300 px-8 py-6 rounded-xl col-span-3 items-center my-8"> Enviar solicitud</button>
+                
+                          </form>
+                        </div>
+                        <div class="flex flex-row gap-5">
+                            <a class="text-black hover:text-yellow-600" href="{% url 'Login' %}">
+                                <h2>¿Ya tienes una cuenta?/h2>
+                            </a>
+                            <a href="{% url 'Signup' %}">Crear estudiante</a>
+                        </div>
+                      </div>
+    {% endblock content %}
+</body>
 
 
 </html>

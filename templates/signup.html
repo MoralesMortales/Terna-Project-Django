@@ -104,16 +104,17 @@
 
                     <button type="submit" class="hover:bg-slate-400 hover:transition bg-red-300 px-8 py-6 rounded-xl"> Enviar solicitud</button>
 
-                    
-
                 </form>
                 
             </div>
-            <a class="text-black hover:text-yellow-600" href="{% url 'Login' %}">
+            <div class="flex flex-row w-full justify-around">
+
+                <a class="text-black hover:text-yellow-600" href="{% url 'Login' %}">
                         <h2>Already have an account? Log in here!</h2>
-                </a>
-		<a href=" {% url 'signup_s' %} ">create SECRET </a>
-        </div>
+                    </a>
+                    <a href=" {% url 'signup_s' %} ">create SECRET </a>
+                </div>
+                </div>
 
         {% endblock content %}
 
