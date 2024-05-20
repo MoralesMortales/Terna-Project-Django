@@ -128,11 +128,14 @@ def signup_S(request):
 def signUp(request):
     if request.method == "POST":
         form = EstudianteForm(request.POST)
-        password = request.POST['thepassword']
-        password_conf = request.POST['password_conf']
         
-        if form.is_valid() and password == password_conf:
+        if form.is_valid():
             form.save()
+            password = request.POST['thepassword']
+            password_conf = request.POST['password_conf']
+            if password != password_conf:
+                messages.error(request, "Las contraseñas no coinciden")
+                return redirect('signup')
             the_user_name = request.POST['the_user_name']
             pname = request.POST['father_lastname']
             mname = request.POST['mother_lastname']
@@ -141,38 +144,31 @@ def signUp(request):
             fnaci = request.POST['fnaci']
             tlfn = request.POST['tlfn']
             sexo = request.POST['sexo']
-            carrera_id = request.POST.get('carrera')  # Use carrera_id instead of carrera_views
+            carrera_id = request.POST.get('carrera')
             carrera_views = get_object_or_404(Carrera, pk=carrera_id)
 
-            # Create a new User instance
             myuser = User.objects.create_user(username=the_user_name, email=theemail, password=password)
-
-            # Create an associated Estudiante instance and set user_id
-            estudiante = Estudiante.objects.create(
-                    nombre=the_user_name, 
-                    apellidoPaterno=pname, 
-                    email=theemail, 
-                    sexo=sexo, 
-                    apellidoMaterno=mname, 
-                    cedula=cedula,
-                    fechaNacimiento=fnaci, 
-                    telefono=tlfn, 
-                    carrera=carrera_views,
-                    user=myuser
-                    )
+            Estudiante.objects.create(
+                nombre=the_user_name, 
+                apellidoPaterno=pname, 
+                apellidoMaterno=mname,
+                email=theemail, 
+                sexo=sexo, 
+                cedula=cedula,
+                fechaNacimiento=fnaci, 
+                telefono=tlfn, 
+                carrera=carrera_views,
+                user=myuser
+            )
             messages.success(request, "Congrats, you have signed up")
             return redirect("Login")
-
         else:
-            if password != password_conf:
-                messages.error(request, "Passwords do not match")
-            else:
-                messages.error(request, "Form is invalid")
-
+            messages.error(request, "Form is invalid")
+    
     carreras = Carrera.objects.all()
     form = EstudianteForm()
-
     return render(request, 'signup.html', {'form': form, 'carreras': carreras})
+
 def menuDefaultPage(request):
     context = {}
     if request.user.is_authenticated:
