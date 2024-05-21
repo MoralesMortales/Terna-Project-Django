@@ -7,7 +7,7 @@ from .models import Carrera, Estudiante, Secretario #type:ignore
 from django.contrib.auth.models import User #type:ignore
 from django.contrib import messages #type:ignore
 from django.contrib.auth import logout, login, authenticate  #type:ignore
-from django.core.mail import send_mail #type:ignore
+
 
 def UgmaSite(request):
     return render(request, "ugmaPage.html")
@@ -37,38 +37,38 @@ class BasePage(TemplateView):
 
 class FormularioEmail(TemplateView):
     template_name = "formularioContacto.html"
-
 def logIn(request):
     if request.method == "POST":
         email = request.POST['theemail']
         password = request.POST['password']
 
-        myuser = authenticate(request, email=email, password=password)
+        # Autenticar al usuario usando el email como username
+        myuser = authenticate(request, username=email, password=password)
 
         if myuser is not None:
             login(request, myuser)
 
-            # Check if the user is an Estudiante
+            # Verificar si el usuario es Estudiante
             try:
                 estudiante = Estudiante.objects.get(email=email)
                 return render(request, "menu.html", {'theusername': myuser.first_name, 'est': estudiante})
             except Estudiante.DoesNotExist:
                 pass
 
-            # Check if the user is a Secretario
+            # Verificar si el usuario es Secretario
             try:
                 secretario = Secretario.objects.get(email=email)
                 return render(request, "menu_secretaria.html", {'theusername': myuser.first_name, 'theuser': secretario})
             except Secretario.DoesNotExist:
                 pass
 
-            # If neither Estudiante nor Secretario
-            messages.error(request, 'User type not recognized')
-            return render(request, "login.html")
+            # Si no es ni Estudiante ni Secretario
+            messages.error(request, 'Tipo de usuario no reconocido')
+            return redirect('login')  # Redirigir en lugar de renderizar para evitar el repost de formularios
 
         else:
-            messages.error(request, 'Wrong username or password')
-            return render(request, "login.html")
+            messages.error(request, 'Nombre de usuario o contraseña incorrectos')
+            return redirect('login')
 
     return render(request, "login.html")
 
@@ -79,52 +79,52 @@ def logOut(request):
     return render(request,"signout.html")
 
 def signup_S(request):
-    if request.method == "POST":
+    if request.method == 'POST':
         form = SecretarioForm(request.POST)
-        
-        password = request.POST.get('thepassword')
-        password_conf = request.POST.get('password_conf')
-
         if form.is_valid():
-            if password == password_conf:
-                try:
-                    the_user_name = request.POST.get('nombre')
-                    lastname = request.POST.get('apellido')
-                    theemail = request.POST.get('email')
-                    cedula = request.POST.get('the_cedula')
-                    fnaci = request.POST.get('fnaci')
-                    tlfn = request.POST.get('tlfn')
-                    sexo = request.POST.get('sexo')
-                    
-                    myuser = User.objects.create_user(username=the_user_name, email=theemail, password=password)
+            # Create the user
+            user = User.objects.create_user(
+                username=form.cleaned_data['email'],
+                email=form.cleaned_data['email'],
+                password=form.cleaned_data['password']
+            )
+            secretario = form.save(commit=False)
+            secretario.user = user
+            secretario.save()
 
-                    # Create Secretario instance and associate with user
-                    Secretario.objects.create(
-                        nombre=the_user_name,
-                        apellido=lastname,
-                        email=theemail,
-                        sexo=sexo,
-                        cedula=cedula,
-                        fechaNacimiento=fnaci,
-                        telefono=tlfn,
-                        user=myuser
-                    )
-
-                    messages.success(request, "Congrats, you have signed up")
-                    return redirect("login")
-
-                except Exception as e:
-                    messages.error(request, f"An error occurred: {str(e)}")
-            else:
-                messages.error(request, "Passwords do not match")
-        else:
-            messages.error(request, "Form is invalid")
-
+            # Log in the user
+            login(request, user)
+            return redirect('Login') 
     else:
         form = SecretarioForm()
 
     return render(request, 'signup_S.html', {'form': form})
 
+def signUp(request):
+    carreras = Carrera.objects.all()
+    if request.method == 'POST':
+        form = EstudianteForm(request.POST)
+        if form.is_valid():
+            # Create the user
+            user = User.objects.create_user(
+                username=form.cleaned_data['email'],
+                email=form.cleaned_data['email'],
+                password=form.cleaned_data['password']
+            )
+            # Create the Estudiante instance
+            estudiante = form.save(commit=False)
+            estudiante.user = user
+            estudiante.save()
+
+            # Log in the user
+            login(request, user)
+            return redirect('Login') 
+    else:
+        form = EstudianteForm()
+
+    return render(request, 'signup.html', {'form': form, 'carreras': carreras})
+
+"""
 def signUp(request):
     if request.method == "POST":
         form = EstudianteForm(request.POST)
@@ -173,6 +173,7 @@ def signUp(request):
     form = EstudianteForm()
 
     return render(request, 'signup.html', {'form': form, 'carreras': carreras})
+"""
 def menuDefaultPage(request):
     context = {}
     if request.user.is_authenticated:
