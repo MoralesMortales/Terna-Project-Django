@@ -50,7 +50,7 @@ class Estudiante(models.Model):
 
 class Secretario(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, default=None)
-    cedula = models.CharField(max_length=8, unique=True)
+    cedula = models.CharField(max_length=9, unique=True)
     telefono = models.CharField(max_length=13, blank=True)
     apellido = models.CharField(max_length=30, blank=True)
     nombre = models.CharField(max_length=30, blank=True)
@@ -69,7 +69,6 @@ class Secretario(models.Model):
         return txt.format(self.nombre, self.apellido)
 
     def __str__(self):
-
         txt = "Secretari@: {0}"
         return txt.format(self.nombreCompleto())
 

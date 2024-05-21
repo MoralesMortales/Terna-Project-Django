@@ -25,7 +25,7 @@
                     <h1>Sign up</h1>
                 </div>
 
-                <form method="post" action="/signup" class="grid grid-cols-3 place-items-center justify-self-center place-content-center justify-items-center">
+                <form method="post" action="{% url 'Signup' %}" class="grid grid-cols-3 place-items-center justify-self-center place-content-center justify-items-center">
                     {% csrf_token %}
 
                     <div id="userspace" class="info_c_box">
@@ -36,7 +36,7 @@
                     </div>
                     
                     <div id="father_lastname" class="info_c_box">
-                        <label for="">Apellido Paterno</label>
+                        <label for="">Apellido Paaterno</label>
                         <input type="text" name="father_lastname" id="thefatherlastnameid" class="input_login_up" required>
                     </div>
                   
@@ -48,7 +48,7 @@
 
                     <div id="cedula" class="info_c_box w-full">
                         <label for="">Cedula</label>
-                        <input type="number" name="the_cedula" id="thecedulaid" class="input_login_up w-3/4" min=1000000 max=100000000 required>
+                        <input type="number" name="the_cedula" id="thecedulaid" class="input_login_up w-3/4" required>
                     </div>
 
                     <div id="fnaci" class="info_c_box">
@@ -70,22 +70,22 @@
                 
                     <div id="email" class="info_c_box">
                         <label for="">Correo Electronico</label>
-                        <input type="email" name="email" id="self-email" class=" input_login_up" required>
+                        <input type="email" name="theemail" id="self-email" class=" input_login_up" required>
                     </div>
 
                     <div id="password" class="info_c_box">
                         <label for="">Contrasena</label>
-                        <input type="password" name="thepassword" id="thepasswordid" min="8" class=" input_login_up" required>
+                        <input type="password" name="thepassword" id="thepasswordid" class=" input_login_up" required>
                     </div>
 
                     <div id="password_conf" class="info_c_box">
                         <label for="">Confirmar Contrasena</label>
-                        <input type="password" name="password_conf" id="thepasswordconfid" min="8"  class=" input_login_up" required>
+                        <input type="password" name="password_conf" id="thepasswordconfid" class=" input_login_up" required>
                     </div>
 
                     <div id="tlfn" class="info_c_box">
                         <label for="">Numero de Telefono</label>
-                        <input type="text" name="tlfn" id="thetlfnid" class=" input_login_up" min="11" max="11" required>
+                        <input type="text" name="tlfn" id="thetlfnid" class=" input_login_up" required>
                     </div>
 
                     <div id="carrera_select" class="info_c_box">

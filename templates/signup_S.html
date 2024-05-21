@@ -30,13 +30,13 @@
                             </div>
                 
                             <div id="apellido" class="info_c_box">
-                              <label for="">Apellidos</label>
+                              <label for="">Apellido</label>
                               <input type="text" name="apellido" id="thefatherlastnameid" class="input_login_up" required>
                             </div>
                 
                             <div id="cedula" class="info_c_box">
                               <label for="">Cedula</label>
-                              <input type="number" name="the_cedula" id="thecedulaid" min="1000000" max="999999999"  class=" input_login_up" required >
+                              <input type="number" name="the_cedula" id="thecedulaid" class=" input_login_up" required >
                             </div>
                 
                             <div id="sexo" class="info_c_box">
@@ -84,9 +84,9 @@
                         </div>
                         <div class="flex flex-row gap-5">
                             <a class="text-black hover:text-yellow-600" href="{% url 'Login' %}">
-                                <h2>¿Ya tienes una cuenta?/h2>
+                                <h2>¿Ya tienes una cuenta?</h2>
                             </a>
-                            <a href="{% url 'Signup' %}">Crear estudiante</a>
+                            <a href="{% url 'Signup' %}">Crear estudianteo</a>
                         </div>
                       </div>
     {% endblock content %}
