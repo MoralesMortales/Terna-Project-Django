@@ -1,9 +1,9 @@
 from django.shortcuts import get_object_or_404, redirect, render #type:ignore
 from django.views.generic import TemplateView #type:ignore
 from django.conf import settings #type:ignore
-from .forms import CarreraForm, EstudianteForm, SecretarioForm #type:ignore
+from .forms import CarreraForm, EstudianteForm, SecretarioForm, NotaEstudianteForm, EditarNotaEstudianteForm #type:ignore
 from django.contrib.auth.models import Group #type:ignore
-from .models import Carrera, Estudiante, Secretario #type:ignore
+from .models import Carrera, Estudiante, Secretario, NotaEstudiante #type:ignore
 from django.contrib.auth.models import User #type:ignore
 from django.contrib import messages #type:ignore
 from django.contrib.auth import logout, login, authenticate  #type:ignore
@@ -33,6 +33,7 @@ class BasePage(TemplateView):
     template_name = "base.html"
 
 class FormularioEmail(TemplateView):
+    
     template_name = "formularioContacto.html"
 def logIn(request):
     if request.method == "POST":
@@ -61,11 +62,11 @@ def logIn(request):
 
             # Si no es ni Estudiante ni Secretario
             messages.error(request, 'Tipo de usuario no reconocido')
-            return redirect('login')  # Redirigir en lugar de renderizar para evitar el repost de formularios
+            return redirect('Login')  # Redirigir en lugar de renderizar para evitar el repost de formularios
 
         else:
             messages.error(request, 'Nombre de usuario o contraseña incorrectos')
-            return redirect('login')
+            return redirect('Login')
 
     return render(request, "login.html")
 
@@ -122,62 +123,6 @@ def signUp(request):
 
     return render(request, 'signup.html', {'form': form, 'carreras': carreras})
 
-"""
-def signUp(request):
-    if request.method == "POST":
-        form = EstudianteForm(request.POST)
-        password = request.POST['thepassword']
-        password_conf = request.POST['password_conf']
-
-        if form.is_valid() and password == password_conf:
-            try:
-                # Extract data from the form
-                the_user_name = form.cleaned_data['the_user_name']
-                pname = form.cleaned_data['father_lastname']
-                mname = form.cleaned_data['mother_lastname']
-                theemail = form.cleaned_data['email']
-                cedula = form.cleaned_data['the_cedula']
-                fnaci = form.cleaned_data['fnaci']
-                tlfn = form.cleaned_data['tlfn']
-                sexo = form.cleaned_data['sexo']
-                carrera_id = form.cleaned_data['carrera']
-
-                carrera_views = get_object_or_404(Carrera, pk=carrera_id)
-
-                # Create a new User instance
-                myuser = User.objects.create_user(username=the_user_name, email=theemail, password=password)
-
-                # Create an associated Estudiante instance and set user_id
-                estudiante = Estudiante.objects.create(
-                    nombre=the_user_name,
-                    apellidoPaterno=pname,
-                    email=theemail,
-                    sexo=sexo,
-                    apellidoMaterno=mname,
-                    cedula=cedula,
-                    fechaNacimiento=fnaci,
-                    telefono=tlfn,
-                    carrera=carrera_views,
-                    user=myuser
-                )
-                messages.success(request, "Congrats, you have signed up")
-                return redirect("login")
-            except Exception as e:
-                messages.error(request, f"An error occurred: {str(e)}")
-        else:
-            if password != password_conf:
-                messages.error(request, "Passwords do not match")
-            else:
-                messages.error(request, "Form is invalid")
-                print(form.errors)  # Imprimir los errores del formulario en la consola
-
-    else:
-        form = EstudianteForm()
-
-    carreras = Carrera.objects.all()
-    return render(request, 'signup.html', {'form': form, 'carreras': carreras})
-"""
-
 def menuDefaultPage(request):
     context = {}
     if request.user.is_authenticated:
@@ -190,3 +135,34 @@ def menuDefaultPage(request):
 
 def ugmaPage(request):
     return render(request, "ugmaPage.html")
+
+def gestionar_notas(request, estudiante_id):
+    try:
+        nota_estudiante = NotaEstudiante.objects.get(estudiante_id=estudiante_id)
+    except NotaEstudiante.DoesNotExist:
+        nota_estudiante = None
+
+    if request.method == 'POST':
+        form = NotaEstudianteForm(request.POST, instance=nota_estudiante)
+        if form.is_valid():
+            form.save()
+            return redirect('menuDefault')  # Redirige a una página de éxito o a la vista deseada
+    else:
+        form = NotaEstudianteForm(instance=nota_estudiante)
+    
+    return render(request, 'notas.html', {'form': form})
+
+def editar_notas_estudiante(request, estudiante_id):
+    nota_estudiante = get_object_or_404(NotaEstudiante, estudiante_id=estudiante_id)
+    if request.method == 'POST':
+        form = EditarNotaEstudianteForm(request.POST, instance=nota_estudiante)
+        if form.is_valid():
+            form.save()
+            return redirect('ver_notas')  # Redirigir a la vista de la lista de notas o a una página de éxito
+    else:
+        form = EditarNotaEstudianteForm(instance=nota_estudiante)
+    return render(request, 'notas.html', {'form': form})
+
+def listar_notas(request):
+    notas = NotaEstudiante.objects.select_related('estudiante').all()
+    return render(request, 'ver_notas.html', {'notas': notas})

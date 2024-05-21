@@ -1,7 +1,7 @@
 
 from django.contrib.auth.models import User
 from django import forms
-from .models import Carrera, Estudiante, Secretario
+from .models import Carrera, Estudiante, Secretario, NotaEstudiante
 
 class CarreraForm(forms.ModelForm):
     class Meta:
@@ -19,10 +19,22 @@ class EstudianteForm(forms.ModelForm):
             'fechaNacimiento', 'sexo', 'email', 'telefono', 'carrera'
         ]
 
-class SecretarioForm(forms.ModelForm):
+class NotaEstudianteForm(forms.ModelForm):
+    class Meta:
+        model = NotaEstudiante
+        fields = ['estudiante', 'primer_corte', 'segundo_corte', 'tercer_corte']
+
+class EditarNotaEstudianteForm(forms.ModelForm):
+    class Meta:
+        model = NotaEstudiante
+        fields = ['primer_corte', 'segundo_corte', 'tercer_corte']
+
+class SecretarioForm(forms.ModelForm):  
+    password = forms.CharField(widget=forms.PasswordInput)
+    password_conf = forms.CharField(widget=forms.PasswordInput)
     class Meta:
         model = Secretario
-        fields = '__all__'
-        widgets = {
-                'sexo': forms.Select(choices=Estudiante.sexos),
-                }
+        fields = [
+            'nombre', 'apellidoPaterno', 'cedula', 
+            'fechaNacimiento', 'sexo', 'email', 'telefono'
+        ]

@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<div class="h-screem">
+
+    <h1>Editar Notas del Estudiante</h1>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Guardar</button>
+    </form>
+    <a href="{% url 'listar_notas' %}">Volver a la lista de notas</a>
+
+</div>
+
+{% endblock content %}

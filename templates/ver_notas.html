@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<h1>Lista de Notas de Estudiantes</h1>
+<table border="1">
+    <thead>
+        <tr>
+            <th>Nombre del Estudiante</th>
+            <th>Primer Corte</th>
+            <th>Segundo Corte</th>
+            <th>Tercer Corte</th>
+            <th>Nota Definitiva</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for nota in notas %}
+            <tr>
+                <td>{{ nota.estudiante.nombre }} {{ nota.estudiante.apellidoPaterno }}</td>
+                <td>{{ nota.primer_corte }}</td>
+                <td>{{ nota.segundo_corte }}</td>
+                <td>{{ nota.tercer_corte }}</td>
+                <td>{{ nota.nota_definitiva }}</td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+{% endblock content %}
+
