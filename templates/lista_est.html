@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="h-96 bg-black text-white mt-96">
+    <h1>Lista de Estudiantes</h1>
+    {% if estudiantes %}
+    <ul>
+        {% for estudiante in estudiantes %}
+        <li>
+            <a href="{% url 'editarNotas' estudiante.email %}">{{ estudiante.nombre }}</a>
+        </li>
+        {% endfor %}
+    </ul>
+    {% else %}
+    <p>No students found.</p>
+    {% endif %}
+</div>
+<h1>Estudiantes Count: {{ estudiantes.count }}</h1>
+
+{% endblock content %}

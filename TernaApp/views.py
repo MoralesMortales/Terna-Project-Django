@@ -1,6 +1,7 @@
 from django.shortcuts import get_object_or_404, redirect, render #type:ignore
 from django.views.generic import TemplateView #type:ignore
 from django.conf import settings #type:ignore
+from django.core.exceptions import ObjectDoesNotExist
 from .forms import CarreraForm, EstudianteForm, SecretarioForm, NotaEstudianteForm, EditarNotaEstudianteForm #type:ignore
 from django.contrib.auth.models import Group #type:ignore
 from .models import Carrera, Estudiante, Secretario, NotaEstudiante #type:ignore
@@ -124,15 +125,15 @@ def signUp(request):
     return render(request, 'signup.html', {'form': form, 'carreras': carreras})
 
 def menuDefaultPage(request):
-    context = {}
     if request.user.is_authenticated:
-        email = request.user.email
-        estudiante = Estudiante.objects.get(pk=email)
-        context['est'] = estudiante
-        context['imagenes'] = imagenes
-        return render(request, "menu.html", context)
-    return render(request, "menu.html")
-
+        try:
+            estudiante = Estudiante.objects.get(email=request.user.email)
+            return render(request, 'menu.html', {'estudiante': estudiante})
+        except ObjectDoesNotExist:
+            # Handle case where no Estudiante object exists for the user's email
+            return render(request, 'menu.html', {'error_message': 'No Estudiante object found for this email'})
+    else:
+        return render(request, 'menu.html')
 def ugmaPage(request):
     return render(request, "ugmaPage.html")
 
@@ -152,17 +153,20 @@ def gestionar_notas(request, estudiante_id):
     
     return render(request, 'notas.html', {'form': form})
 
-def editar_notas_estudiante(request, estudiante_id):
-    nota_estudiante = get_object_or_404(NotaEstudiante, estudiante_id=estudiante_id)
-    if request.method == 'POST':
-        form = EditarNotaEstudianteForm(request.POST, instance=nota_estudiante)
-        if form.is_valid():
-            form.save()
-            return redirect('ver_notas')  # Redirigir a la vista de la lista de notas o a una página de éxito
-    else:
-        form = EditarNotaEstudianteForm(instance=nota_estudiante)
-    return render(request, 'notas.html', {'form': form})
 
 def listar_notas(request):
     notas = NotaEstudiante.objects.select_related('estudiante').all()
     return render(request, 'ver_notas.html', {'notas': notas})
+
+def lista_estudiantes(request):
+    estudiantes = Estudiante.objects.all()
+    print(estudiantes)  # Add this line
+    return render(request, 'lista_est.html', {'estudiantes': estudiantes})
+def editar_notas_estudiante(request, email):
+    estudiante = get_object_or_404(Estudiante, email=email)
+    form = EditarNotaEstudianteForm(request.POST or None, instance=estudiante)
+    if request.method == 'POST':
+        if form.is_valid():
+            form.save()
+            return redirect('menuDefault')
+    return render(request, 'notas.html', {'form': form, 'estudiante': estudiante})
