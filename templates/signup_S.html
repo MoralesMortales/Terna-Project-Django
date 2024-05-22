@@ -83,12 +83,17 @@
                           </form>
                         </div>
                         <div class="flex flex-row gap-5">
-                            <a class="text-black hover:text-yellow-600" href="{% url 'Login' %}">
-                                <h2>¿Ya tienes una cuenta?/h2>
-                            </a>
-                            <a href="{% url 'Signup' %}">Crear estudiante</a>
+                            <a class="text-black hover:text-yellow-600" href="{% url 'Login' %}"><h2>¿Ya tienes una cuenta?</h2></a>
+                            <a href="{% url 'Signup' %}">Crear estudiant8e</a>
                         </div>
                       </div>
+
+
+                      <script id="messages" type="application/json">
+                        {{ messages|safe }}
+                    </script>
+                    <!-- Incluye el archivo index.js -->
+                    <script src="{% static 'js/index.js' %}" defer></script>
     {% endblock content %}
 </body>
 

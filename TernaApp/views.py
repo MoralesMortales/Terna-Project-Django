@@ -1,6 +1,8 @@
 from django.shortcuts import get_object_or_404, redirect, render #type:ignore
 from django.views.generic import TemplateView #type:ignore
-from django.conf import settings #type:ignore
+from django.conf import settings
+
+from TernaApp.utils import get_serializable_messages #type:ignore
 from .forms import CarreraForm, EstudianteForm, SecretarioForm #type:ignore
 from django.contrib.auth.models import Group #type:ignore
 from .models import Carrera, Estudiante, Secretario #type:ignore
@@ -122,6 +124,12 @@ def signup_S(request):
 
     else:
         form = SecretarioForm()
+        serializable_messages = get_serializable_messages(request)
+
+    return render(request, 'signup_S.html', {
+        'form': form,
+        'messages': serializable_messages
+    })
 
     return render(request, 'signup_S.html', {'form': form})
 
@@ -179,7 +187,6 @@ def menuDefaultPage(request):
         email = request.user.email
         estudiante = Estudiante.objects.get(pk=email)
         context['est'] = estudiante
-        context['imagenes'] = imagenes
         return render(request, "menu.html", context)
     return render(request, "menu.html")
 
