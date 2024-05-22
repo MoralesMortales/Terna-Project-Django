@@ -1,35 +1,40 @@
 
 from django.contrib.auth.models import User
 from django import forms
-from .models import Carrera, Estudiante, Secretario
+from .models import Carrera, Estudiante, Secretario, NotaEstudiante
+
 class CarreraForm(forms.ModelForm):
     class Meta:
         model = Carrera
         fields = ['codigo', 'nombre', 'duracion']
 
 class EstudianteForm(forms.ModelForm):
+    password = forms.CharField(widget=forms.PasswordInput)
+    password_conf = forms.CharField(widget=forms.PasswordInput)
+
     class Meta:
         model = Estudiante
-        fields = '__all__'
-        widgets = {
-                'sexo': forms.Select(choices=Estudiante.sexos),
-                }
+        fields = [
+            'nombre', 'apellidoPaterno', 'apellidoMaterno', 'cedula', 
+            'fechaNacimiento', 'sexo', 'email', 'telefono', 'carrera'
+        ]
 
-        def clean_username(self):
-            username = self.cleaned_data.get('username')
-            if User.objects.filter(username=username).exists():
-                raise forms.ValidationError("Este nombre de usuario ya está en uso. Por favor, elija otro.")
-            return username
-class SecretarioForm(forms.ModelForm):
+class NotaEstudianteForm(forms.ModelForm):
+    class Meta:
+        model = NotaEstudiante
+        fields = ['estudiante', 'primer_corte', 'segundo_corte', 'tercer_corte']
+
+class EditarNotaEstudianteForm(forms.ModelForm):
+    class Meta:
+        model = NotaEstudiante
+        fields = ['primer_corte', 'segundo_corte', 'tercer_corte']
+
+class SecretarioForm(forms.ModelForm):  
+    password = forms.CharField(widget=forms.PasswordInput)
+    password_conf = forms.CharField(widget=forms.PasswordInput)
     class Meta:
         model = Secretario
-        fields = '__all__'
-        widgets = {
-                'sexo': forms.Select(choices=Estudiante.sexos),
-                }
-
-        def clean_username(self):
-            username = self.cleaned_data.get('username')
-            if User.objects.filter(username=username).exists():
-                raise forms.ValidationError("Este nombre de usuario ya está en uso. Por favor, elija otro.")
-            return username          
+        fields = [
+            'nombre', 'apellidoPaterno', 'cedula', 
+            'fechaNacimiento', 'sexo', 'email', 'telefono'
+        ]

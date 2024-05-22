@@ -1,16 +1,5 @@
 {% extends 'base.html' %} {% load static %}
 
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="{% static "css/base.css" %}">
-    <script src="https://cdn.tailwindcss.com"></script>
-
-    <title>Document</title>
-  </head>
-  <body>
     {% block content %}
 
     <div
@@ -22,23 +11,22 @@
 
       <div
         id="box"
-        class="bg-slate-200 rounded-3xl w-2/3 flex justify-center items-center flex-col mb-14 p-6">
-        <div class="h-28 p-6 rounded-lg bg-blue-50">
-          {% for imagen in imagenes %}
-          <img
-            src="{{ imagen.imagen.url }}"
-            class="h-full mb-2"
-            alt="{{ imagen.nombre }}" />
-          a {% endfor %}
-        </div>
+        class="bg-slate-200 rounded-3xl w-2/3 flex justify-center items-center flex-row gap-6 mb-14 p-6">
+        
+        <a class="h-28 p-6 rounded-lg bg-blue-50">
+Perfil
+        </a>
+        
+        <a href="" class="h-28 p-6 rounded-lg bg-blue-50">
+          ver notas</a>
       </div>
 
       {% else %}
+
       <h1 class="m-auto">welcome to the menu</h1>
 
       {% endif %}
-    </div>
+    
+      </div>
 
     {% endblock content %}
-  </body>
-</html>

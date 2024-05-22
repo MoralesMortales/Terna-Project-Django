@@ -89,6 +89,14 @@ WSGI_APPLICATION = 'TernaProject.wsgi.application'
 
 DATABASES = {
     'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': "terna.db",
+    }
+}
+
+"""
+DATABASES = {
+    'default': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'bq1jll2vnno2h3msyzdw',
         'USER': 'ujypbrgwq4lvqu9fg2aa',
@@ -97,7 +105,7 @@ DATABASES = {
         'PORT': '50013',       
     }
 }
-
+"""
 
 
 
