@@ -7,7 +7,32 @@ from django.contrib.auth.models import Group #type:ignore
 from .models import Carrera, Estudiante, Secretario, NotaEstudiante #type:ignore
 from django.contrib.auth.models import User #type:ignore
 from django.contrib import messages #type:ignore
+from django.contrib.auth.decorators import login_required #type:ignore
 from django.contrib.auth import logout, login, authenticate  #type:ignore
+
+@login_required
+def materias_asignadas(request):
+    if hasattr(request.user, 'profesor'):
+        profesor = request.user.profesor
+        materias = Materia.objects.filter(profesor=profesor)
+        return render(request, 'materias_asignadas.html', {'materias': materias})
+    else:
+        return redirect('home')
+
+@login_required
+def crear_materia(request):
+    if hasattr(request.user, 'secretario'):
+        if request.method == 'POST':
+            form = MateriaForm(request.POST)
+            if form.is_valid():
+                form.save()
+                return redirect('lista_materias')
+        else:
+            form = MateriaForm()
+        return render(request, 'crear_materia.html', {'form': form})
+    else:
+        return redirect('home')
+
 
 
 def UgmaSite(request):
@@ -124,16 +149,20 @@ def signUp(request):
 
     return render(request, 'signup.html', {'form': form, 'carreras': carreras})
 
+@login_required
 def menuDefaultPage(request):
-    if request.user.is_authenticated:
-        try:
-            estudiante = Estudiante.objects.get(email=request.user.email)
-            return render(request, 'menu.html', {'estudiante': estudiante})
-        except ObjectDoesNotExist:
-            # Handle case where no Estudiante object exists for the user's email
-            return render(request, 'menu.html', {'error_message': 'No Estudiante object found for this email'})
-    else:
+    if hasattr(request.user, 'secretario'):
+        return render(request, 'menu_secretaria.html')
+    elif hasattr(request.user, 'profesor'):
+        return render(request, 'menu_profesor.html')
+    elif hasattr(request.user, 'estudiante'):
         return render(request, 'menu.html')
+    else:
+        return redirect('menu.html')
+
+def menuPage(request):
+    return render(request, 'menu.html')
+    
 def ugmaPage(request):
     return render(request, "ugmaPage.html")
 

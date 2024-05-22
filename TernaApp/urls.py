@@ -1,4 +1,4 @@
-from .views import BasePage,logIn,signup_S,logOut,signUp,menuDefaultPage, lista_estudiantes, createNew, ugmaPage, editar_notas_estudiante, listar_notas
+from .views import menuDefaultPage, logIn, logOut, signUp, createNew, ugmaPage, signup_S, editar_notas_estudiante, listar_notas, lista_estudiantes #type:ignore
 from django.urls import path #type:ignore
 from django.conf.urls.static import static #type:ignore
 from django.conf import settings #type:ignore
@@ -14,4 +14,5 @@ urlpatterns = [
    path("notas/editar/<str:email>/", editar_notas_estudiante, name="editarNotas"),
    path("listar_notas", listar_notas, name="listar_notas"),
    path("lista_estudiantes", lista_estudiantes, name="lista_est"),
+
 ] 
