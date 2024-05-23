@@ -87,27 +87,17 @@ WSGI_APPLICATION = 'TernaProject.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': "terna.db",
-    }
-}
 
-"""
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'bq1jll2vnno2h3msyzdw',
-        'USER': 'ujypbrgwq4lvqu9fg2aa',
-        'PASSWORD': '0074PGz2n7AL4w6DSCFw5xq5d6NA24',
-        'HOST': 'bq1jll2vnno2h3msyzdw-postgresql.services.clever-cloud.com',  
-        'PORT': '50013',       
+        'NAME': 'bnbb0h1pkv2r7j2x0kkr',
+        'USER': 'uimryy8itkuijg7odwvz',
+        'PASSWORD': 'Q7uLC14Y3NvJEprQjvy10rMQrnaump',
+        'HOST': 'bnbb0h1pkv2r7j2x0kkr-postgresql.services.clever-cloud.com',
+        'PORT': '50013',
     }
 }
-"""
-
-
 
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators

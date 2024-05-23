@@ -1,14 +1,38 @@
 from django.shortcuts import get_object_or_404, redirect, render #type:ignore
 from django.views.generic import TemplateView #type:ignore
-from django.conf import settings #type:ignore
+from django.conf import settings
+from TernaApp.utils import get_serializable_messages #type:ignore
 from .forms import CarreraForm, EstudianteForm, SecretarioForm #type:ignore
 from django.contrib.auth.models import Group #type:ignore
 from django.core.exceptions import ObjectDoesNotExist
 from .models import Carrera, Estudiante, Secretario, NotaEstudiante #type:ignore
 from django.contrib.auth.models import User #type:ignore
 from django.contrib import messages #type:ignore
+from django.contrib.auth.decorators import login_required #type:ignore
 from django.contrib.auth import logout, login, authenticate  #type:ignore
 
+@login_required
+def materias_asignadas(request):
+    if hasattr(request.user, 'profesor'):
+        profesor = request.user.profesor
+        materias = Materia.objects.filter(profesor=profesor)
+        return render(request, 'materias_asignadas.html', {'materias': materias})
+    else:
+        return redirect('home')
+
+@login_required
+def crear_materia(request):
+    if hasattr(request.user, 'secretario'):
+        if request.method == 'POST':
+            form = MateriaForm(request.POST)
+            if form.is_valid():
+                form.save()
+                return redirect('lista_materias')
+        else:
+            form = MateriaForm()
+        return render(request, 'crear_materia.html', {'form': form})
+    else:
+        return redirect('home')
 
 def UgmaSite(request):
     return render(request, "ugmaPage.html")
@@ -16,13 +40,13 @@ def UgmaSite(request):
 def createNew(request):
    
     return render(request, 'createNew.html')
-
 class BasePage(TemplateView):
     template_name = "base.html"
 
 class FormularioEmail(TemplateView):
     
     template_name = "formularioContacto.html"
+
 def logIn(request):
     if request.method == "POST":
         email = request.POST['theemail']
@@ -118,15 +142,18 @@ def signUp(request):
     return render(request, 'signup.html', {'form': form, 'carreras': carreras})
 
 def menuDefaultPage(request):
-    if request.user.is_authenticated:
-        try:
-            estudiante = Estudiante.objects.get(email=request.user.email)
-            return render(request, 'menu.html', {'estudiante': estudiante})
-        except ObjectDoesNotExist:
-            # Handle case where no Estudiante object exists for the user's email
-            return render(request, 'menu.html', {'error_message': 'No Estudiante object found for this email'})
+    if hasattr(request.user, 'secretario'):
+        return render(request, 'menu_secretaria.html')
+    elif hasattr(request.user, 'profesor'):
+        return render(request, 'menu_profesor.html')
+    elif hasattr(request.user, 'Estudiante'):
+        return render(request, 'menu_studient.html')
     else:
         return render(request, 'menu.html')
+ 
+def menuPage(request):
+    return render(request, 'menu.html')
+    
 def ugmaPage(request):
     return render(request, "ugmaPage.html")
 
@@ -146,7 +173,6 @@ def gestionar_notas(request, estudiante_id):
     
     return render(request, 'notas.html', {'form': form})
 
-
 def listar_notas(request):
     notas = NotaEstudiante.objects.select_related('estudiante').all()
     return render(request, 'ver_notas.html', {'notas': notas})
@@ -155,6 +181,7 @@ def lista_estudiantes(request):
     estudiantes = Estudiante.objects.all()
     print(estudiantes)  # Add this line
     return render(request, 'lista_est.html', {'estudiantes': estudiantes})
+
 def editar_notas_estudiante(request, email):
     estudiante = get_object_or_404(Estudiante, email=email)
     form = EditarNotaEstudianteForm(request.POST or None, instance=estudiante)

@@ -3,7 +3,7 @@ from .models import *
 
 admin.site.register(Materia)
 admin.site.register(Carrera)
-admin.site.register(Matricula)
 admin.site.register(Estudiante)
 admin.site.register(Secretario)
+admin.site.register(Profesor)
 

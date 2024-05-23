@@ -49,7 +49,7 @@ class Estudiante(models.Model):
 
 class Secretario(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, default=None)
-    cedula = models.CharField(max_length=9, unique=True)
+    cedula = models.CharField(max_length=9, unique=True, default=1000000)
     telefono = models.CharField(max_length=13, blank=True)
     apellidoPaterno = models.CharField(max_length=30, blank=True)
     nombre = models.CharField(max_length=30, blank=True)
@@ -88,18 +88,35 @@ class NotaEstudiante(models.Model):
     def __str__(self):
         return f"Notas de {self.estudiante} - Definitiva: {self.nota_definitiva}"
 
+
+class Profesor(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    nombre = models.CharField(max_length=100)
+    apellido = models.CharField(max_length=30, blank=True)
+    cedula = models.CharField(max_length=9, unique=True, default='1000000')
+    telefono = models.CharField(max_length=13, blank=True)
+    especialidad = models.CharField(max_length=100)
+    email = models.CharField(max_length=50, blank=True, primary_key=True)
+    fechaNacimiento = models.DateField(default='2000-01-01')
+    sexos = [
+
+        ('M', 'Masculino'),
+        ('F', 'Femenino')
+
+    ]
+    sexo = models.CharField(max_length=1, choices=sexos, default='F')
+
+    def __str__(self):
+        return self.nombre
+
 class Materia(models.Model):
     codigo = models.CharField(max_length=10, primary_key=True)
     seccion = models.CharField(max_length=10)
     nombre = models.CharField(max_length=30)
     creditos = models.SmallIntegerField(default=5)
-    profesor = models.CharField(max_length=70)
+    profesor = models.ForeignKey(Profesor, on_delete=models.CASCADE)
+    
+    def __str__(self):
+        return f'{self.nombre} - {self.seccion}'
 
-class Matricula(models.Model):
-    id = models.AutoField(primary_key=True)
-    estudiante = models.ForeignKey(
-        Estudiante, null=False, blank=False, on_delete=models.CASCADE)
-    materia = models.ForeignKey(
-        Materia, null=False, blank=False, on_delete=models.CASCADE)
-    fechaMatricula = models.DateTimeField(auto_now_add=True)
 
