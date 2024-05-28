@@ -11,6 +11,23 @@ body{
     background-color: rgb(217, 226, 224);
 }
 
+/* .box_sidebar{
+background-color: #ffAE00;
+}
+
+.box_sidebar:hover{
+  color: blue;
+} */
+
+/* #side-bar{
+  background-color: red;
+  transform: scale(3);
+  -webkit-transform: scale(3);
+  -moz-transform: scale(3);
+  -ms-transform: scale(3);
+  -o-transform: scale(3);
+} */
+
 .option_signup{
   width: 100%;
   background-color: rgb(255, 255, 255);

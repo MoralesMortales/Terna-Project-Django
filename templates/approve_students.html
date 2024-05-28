@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="">
+  <a href="">EStudiantes</a>
+<a href=""></a>
+ 
+<div class="justify-center flex flex-col items-center h-screen w-full">
+    
+    <div id="content" class="w-3/4 mx-5 p-5 py-10 gap-5 bg-slate-400 rounded-xl flex justify-center items-center flex-col">
+        <h3 class="text-lg my-5 hover:border-b-4 hover:border-blue-500">Aprobar Usuarios</h3>
+        <h2>Estudiantes Pendientes</h2>
+        <ul class="w-1/2 bg-orange-500 px-6 py-5 rounded-lg text-justify">
+{% for estudiante in estudiantes %}
+<li>
+    {{ estudiante.nombreCompleto }} - {{ estudiante.email }}
+    <form method="post">
+        {% csrf_token %}
+        <input type="hidden" name="user_type" value="estudiante">
+        <input type="hidden" name="user_id" value="{{ estudiante.id }}">
+        <button type="submit">Aprobar</button>
+    </form>
+</li>
+{% endfor %}
+</ul>
+</div>
+
+{% endblock %}
+
+
+
+

@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="">
+  <a href="">EStudiantes</a>
+<h2>Profesores Pendientes</h2>
+<ul class="w-1/2 bg-orange-500 px-6 py-5 rounded-lg text-justify">
+    {% for profesor in profesores %}
+    <li>
+        {{ profesor.nombre }} - {{ profesor.email }}
+        <form method="post">
+            {% csrf_token %}
+            <input type="hidden" name="user_type" value="profesor">
+            <input type="hidden" name="user_id" value="{{ profesor.id }}">
+            <button type="submit">Aprobar</button>
+        </form>
+    </li>
+    {% endfor %}
+</ul>
+</div>
+</div>
+</div>
+
+{% endblock %}

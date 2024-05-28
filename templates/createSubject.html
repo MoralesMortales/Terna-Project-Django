@@ -1,0 +1,67 @@
+{% extends 'base.html' %} {% load static %}
+
+    {% block content %}
+
+    <div class="top-0 w-full  border-indigo-950 border-b-4 h-screen flex flex-col justify-center items-center " id="container">
+    
+<div class="w-1/2 bg-white flex justify-center items-center flex-col">
+
+    <form action="" method="post" class="grid grid-cols-3 place-items-center">
+        {% csrf_token %}
+        
+        <div class="flex justify-around col-span-3">
+            <div id="subject_name" class="info_c_box">
+                <label for="id_nombre">Nombre de la Materia</label>
+                <input type="text" name="nombre" id="id_nombre" class="input_login_up" required>
+            </div>
+            
+            <div id="subject_code" class="info_c_box">
+                <label for="id_codigo">Codigo Inicial</label>
+                <input type="number" name="codigo" id="id_codigo" class="input_login_up" required>
+            </div>
+            
+        </div >
+        <div id="subject_semester" class="info_c_box col-span-3">
+            <label for="subject_level" class="p-3 bg-slate-400 rounded-lg mb-4">En que Semestre se ve?</label>
+            <div class="grid grid-cols-4 place-items-center justify-items-center gap-5">
+                <label><input type="radio" name="subject_level" value="1"> 1er Semestre</label>
+                <label><input type="radio" name="subject_level" value="2"> 2do Semestre</label>
+                <label><input type="radio" name="subject_level" value="3"> 3er Semestre</label>
+                <label><input type="radio" name="subject_level" value="3"> 4to Semestre</label>
+                <label><input type="radio" name="subject_level" value="3"> 5to Semestre</label>
+                <label><input type="radio" name="subject_level" value="3"> 6to Semestre</label>
+                <label><input type="radio" name="subject_level" value="3"> 7mo Semestre</label>
+                <label><input type="radio" name="subject_level" value="3"> 8vo Semestre</label>
+                <label><input type="radio" name="subject_level" value="3"> 9no Semestre</label>
+                <label><input type="radio" name="subject_level" value="3"> 10mo Semestre</label>
+            </div>
+        </div>
+        
+        <div id="subject_limits" class="info_c_box col-span-3 w-full">
+            <label for="subject_limits">Materias que limitan</label>
+            <select name="subject_limits" id="subject_limits" class="input_login_up w-full">
+                    {% comment %} {% for carrera in carreras %}
+                        <option value="{{ carrera.pk }}" class="">{{ carrera.nombre }}</option>
+                    {% endfor %} {% endcomment %}
+                </select>
+            </div>
+        
+        <div id="students_limit" class="info_c_box">
+            <label for="students_limit">Limite de estudiantes</label>
+            <div class="flex flex-col">
+                <label><input type="radio" name="students_limit" value="mas_40"> Mas de 40</label>
+                <label><input type="radio" name="students_limit" value="menos_40"> Menos de 40</label>
+                <label><input type="radio" name="students_limit" value="menos_16"> Menos de 16</label>
+            </div>
+        </div>
+    
+        <button type="submit" class="btn bg-red-500 rounded-3xl h-1/2 col-span-2 w-2/3">Enviar</button>
+    </form>
+
+</div>
+
+    </div>
+    
+
+
+    {% endblock content %}

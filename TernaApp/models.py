@@ -14,6 +14,7 @@ class Carrera(models.Model):
 
 class Estudiante(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, default=None)
+    aprobado = models.BooleanField(default=False)
     cedula = models.CharField(max_length=8, unique=True)
     telefono = models.CharField(max_length=13, blank=True)
     nombre = models.CharField(max_length=30)
@@ -92,12 +93,13 @@ class NotaEstudiante(models.Model):
 class Profesor(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     nombre = models.CharField(max_length=100)
-    apellido = models.CharField(max_length=30, blank=True)
+    apellidoPaterno = models.CharField(max_length=30, blank=True)
     cedula = models.CharField(max_length=9, unique=True, default='1000000')
     telefono = models.CharField(max_length=13, blank=True)
     especialidad = models.CharField(max_length=100)
     email = models.CharField(max_length=50, blank=True, primary_key=True)
     fechaNacimiento = models.DateField(default='2000-01-01')
+    aprobado = models.BooleanField(default=False)
     sexos = [
 
         ('M', 'Masculino'),
@@ -111,10 +113,10 @@ class Profesor(models.Model):
 
 class Materia(models.Model):
     codigo = models.CharField(max_length=10, primary_key=True)
-    seccion = models.CharField(max_length=10)
     nombre = models.CharField(max_length=30)
     creditos = models.SmallIntegerField(default=5)
     profesor = models.ForeignKey(Profesor, on_delete=models.CASCADE)
+    limite_estudiantes = models.SmallIntegerField(default=41)
     
     def __str__(self):
         return f'{self.nombre} - {self.seccion}'

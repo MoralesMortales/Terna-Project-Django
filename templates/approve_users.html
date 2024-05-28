@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mx-auto h-screen mt-10">
+    <h1 class="text-2xl mb-5">Aprobar Usuarios Pendientes</h1>
+    <div class="mb-10">
+        <h2 class="text-xl">Estudiantes Pendientes</h2>
+        <ul>
+            {% for estudiante in estudiantes_pendientes %}
+            <li class="flex items-center justify-between mb-2">
+                {{ estudiante.nombre }} {{ estudiante.apellidoPaterno }} {{ estudiante.apellidoMaterno }}
+                <form method="post" class="flex space-x-2">
+                    {% csrf_token %}
+                    <input type="hidden" name="user_type" value="estudiante">
+                    <input type="hidden" name="user_id" value="{{ estudiante.id }}">
+                    <button type="submit" name="action" value="approve" class="bg-green-500 hover:bg-green-700 text-white px-4 py-2 rounded">Aprobar</button>
+                    <button type="submit" name="action" value="delete" class="bg-red-500 hover:bg-red-700 text-white px-4 py-2 rounded">Eliminar</button>
+                </form>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+    <div>
+        <h2 class="text-xl">Profesores Pendientes</h2>
+        <ul>
+            {% for profesor in profesores_pendientes %}
+            <li class="flex items-center justify-between mb-2">
+                {{ profesor.nombre }} {{ profesor.apellidoPaterno }} {{ profesor.apellidoMaterno }}
+                <form method="post" class="flex space-x-2">
+                    {% csrf_token %}
+                    <input type="hidden" name="user_type" value="profesor">
+                    <input type="hidden" name="user_id" value="{{ profesor.id }}">
+                    <button type="submit" name="action" value="approve" class="bg-green-500 hover:bg-green-700 text-white px-4 py-2 rounded">Aprobar</button>
+                    <button type="submit" name="action" value="delete" class="bg-red-500 hover:bg-red-700 text-white px-4 py-2 rounded">Eliminar</button>
+                </form>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>
+
+{% endblock %}

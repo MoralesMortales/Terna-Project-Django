@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="h-screen">
+<div class="justify-center flex items-center h-2/3">
+
+    <div id="content" class="mx-5 p-5 py-10 bg-slate-400 rounded-xl flex justify-center items-center flex-col">
+        <h3 class="text-lg my-5 hover:border-b-4 hover:border-blue-500">COnfiguracion de la cuenta</h3>
+        
+        <p class="w-2/3">soon</p>
+    </div>
+
+    <a href="{% url "Logout" %}">Salir de la cuenta</a>
+</div>
+</div>
+{% endblock %}
