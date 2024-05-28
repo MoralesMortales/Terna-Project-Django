@@ -17,7 +17,7 @@
     <form method="post">
         {% csrf_token %}
         <input type="hidden" name="user_type" value="estudiante">
-        <input type="hidden" name="user_id" value="{{ estudiante.id }}">
+        <input type="hidden" name="user_email" value="{{ estudiante.email }}">
         <button type="submit">Aprobar</button>
     </form>
 </li>

@@ -97,7 +97,7 @@ class Profesor(models.Model):
     cedula = models.CharField(max_length=9, unique=True, default='1000000')
     telefono = models.CharField(max_length=13, blank=True)
     especialidad = models.CharField(max_length=100)
-    email = models.CharField(max_length=50, blank=True, primary_key=True)
+    email = models.EmailField(unique=True, blank=True, primary_key=True)
     fechaNacimiento = models.DateField(default='2000-01-01')
     aprobado = models.BooleanField(default=False)
     sexos = [
@@ -115,10 +115,9 @@ class Materia(models.Model):
     codigo = models.CharField(max_length=10, primary_key=True)
     nombre = models.CharField(max_length=30)
     creditos = models.SmallIntegerField(default=5)
-    profesor = models.ForeignKey(Profesor, on_delete=models.CASCADE)
+    profesor = models.ForeignKey(Profesor, to_field='email',on_delete=models.CASCADE)
     limite_estudiantes = models.SmallIntegerField(default=41)
-    
+    limitantes = models.ManyToManyField('self', symmetrical=False, blank=True)
+
     def __str__(self):
-        return f'{self.nombre} - {self.seccion}'
-
-
+        return f'{self.nombre} - {self.codigo}'

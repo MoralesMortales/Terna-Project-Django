@@ -12,7 +12,7 @@
                 <form method="post" class="flex space-x-2">
                     {% csrf_token %}
                     <input type="hidden" name="user_type" value="estudiante">
-                    <input type="hidden" name="user_id" value="{{ estudiante.id }}">
+                    <input type="hidden" name="user_email" value="{{ estudiante.email }}">
                     <button type="submit" name="action" value="approve" class="bg-green-500 hover:bg-green-700 text-white px-4 py-2 rounded">Aprobar</button>
                     <button type="submit" name="action" value="delete" class="bg-red-500 hover:bg-red-700 text-white px-4 py-2 rounded">Eliminar</button>
                 </form>
@@ -29,7 +29,7 @@
                 <form method="post" class="flex space-x-2">
                     {% csrf_token %}
                     <input type="hidden" name="user_type" value="profesor">
-                    <input type="hidden" name="user_id" value="{{ profesor.id }}">
+                    <input type="hidden" name="user_email" value="{{ profesor.email }}">
                     <button type="submit" name="action" value="approve" class="bg-green-500 hover:bg-green-700 text-white px-4 py-2 rounded">Aprobar</button>
                     <button type="submit" name="action" value="delete" class="bg-red-500 hover:bg-red-700 text-white px-4 py-2 rounded">Eliminar</button>
                 </form>

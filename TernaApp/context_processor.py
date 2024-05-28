@@ -9,3 +9,8 @@ def get_user_role(request):
         elif hasattr(request.user, 'secretario'):
             return {'user_role': 'secretary'}
     return {'user_role': 'guest'}
+
+def user_name(request):
+    if request.user.is_authenticated:
+        return {'user_name': request.user.first_name}
+    return {}

@@ -51,19 +51,6 @@ class ProfesorForm(forms.ModelForm):
         return cleaned_data
 
 
-class NotaEstudianteForm(forms.ModelForm):
-    class Meta:
-        model = NotaEstudiante
-        fields = ['estudiante', 'primer_corte',
-                  'segundo_corte', 'tercer_corte']
-
-
-class EditarNotaEstudianteForm(forms.ModelForm):
-    class Meta:
-        model = NotaEstudiante
-        fields = ['primer_corte', 'segundo_corte', 'tercer_corte']
-
-
 class SecretarioForm(forms.ModelForm):
     password = forms.CharField(widget=forms.PasswordInput)
     password_conf = forms.CharField(widget=forms.PasswordInput)
@@ -74,6 +61,7 @@ class SecretarioForm(forms.ModelForm):
             'nombre', 'apellidoPaterno', 'cedula',
             'fechaNacimiento', 'sexo', 'email', 'telefono'
         ]
+        
     def clean(self):
         cleaned_data = super().clean()
         password = cleaned_data.get('password')
@@ -85,14 +73,12 @@ class SecretarioForm(forms.ModelForm):
         return cleaned_data
 
 
-class MateriasForm:
+
+class MateriaForm(forms.ModelForm):
     class Meta:
         model = Materia
-        fields = [
-            'codigo', 'nombre',
-            'creditos', 'profesor', 'limite_estudiantes'
-        ]
-
+        fields = ['codigo', 'nombre', 'creditos', 'profesor', 'limite_estudiantes', 'limitantes']
+    profesor = forms.ModelChoiceField(queryset=Profesor.objects.all(), to_field_name='email')
 
 class AprobarEstudianteForm:
     class Meta:

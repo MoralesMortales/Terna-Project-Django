@@ -27,7 +27,7 @@
         <nav class="flex items-center h-16" id="navbar">
           <div class="w-1/4 h-full">
             {% if request.user.is_authenticated %}
-              <button id="switch" class="h-full w-full bg-white"><h3>USERNAME</h3></button>
+              <button id="switch" class="h-full w-full bg-white"><h3>{{ user_name }}</h3></button>
             {% else %}
               <a href="{% url 'menuDefault' %}" class="h-full flex w-3/4 justify-around items-center">
                 <img src="{% static 'img/png-transparent-atlantic-university-columbia-university-ugma-facultad-de-derecho-student-student-angle-people-university-removebg-preview.png' %}" alt="" class="h-full" />
