@@ -104,7 +104,8 @@ class AprobarEstudianteForm:
 class AprobarProfesorForm:
 
     class Meta:
-        model = Estudiante
+        model = Profesor
         fields = [
             'aprobado'
         ]
+        

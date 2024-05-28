@@ -18,6 +18,7 @@ DEBUG = True
 ALLOWED_HOSTS = [
     'localhost',
     '127.0.0.1',
+    'carloslup.pythonanywhere.com,'
     '8000-idx-terna-project-django-1715986194883.cluster-f4iwdviaqvc2ct6pgytzw4xqy4.cloudworkstations.dev',
 ]
 
